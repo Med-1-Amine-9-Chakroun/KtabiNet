@@ -44,6 +44,9 @@ class LivreReel
     #[ORM\Column]
     private ?int $Stock = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $ImageUrl = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class LivreReel
     public function setStock(int $Stock): static
     {
         $this->Stock = $Stock;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->ImageUrl;
+    }
+
+    public function setImageUrl(string $ImageUrl): static
+    {
+        $this->ImageUrl = $ImageUrl;
 
         return $this;
     }
