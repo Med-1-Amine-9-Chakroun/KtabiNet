@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240221181950 extends AbstractMigration
+final class Version20240221200042 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,6 +24,8 @@ final class Version20240221181950 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_880E0D76E7927C74 ON `admin` (email)');
         $this->addSql('ALTER TABLE client ADD email VARCHAR(180) NOT NULL, ADD roles JSON NOT NULL, CHANGE mot_de_passe password VARCHAR(255) NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_C7440455E7927C74 ON client (email)');
+        $this->addSql('ALTER TABLE livre_pdf ADD url_image VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE livre_reel ADD image_url VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -33,5 +35,7 @@ final class Version20240221181950 extends AbstractMigration
         $this->addSql('ALTER TABLE client DROP email, DROP roles, CHANGE password mot_de_passe VARCHAR(255) NOT NULL');
         $this->addSql('DROP INDEX UNIQ_880E0D76E7927C74 ON `admin`');
         $this->addSql('ALTER TABLE `admin` ADD mot_de_passe VARCHAR(255) NOT NULL, DROP email, DROP roles, CHANGE password email_admin VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE livre_pdf DROP url_image');
+        $this->addSql('ALTER TABLE livre_reel DROP image_url');
     }
 }
