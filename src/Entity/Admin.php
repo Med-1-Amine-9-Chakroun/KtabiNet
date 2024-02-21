@@ -4,14 +4,29 @@ namespace App\Entity;
 
 use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
-class Admin
+#[ORM\Table(name: '`admin`')]
+class Admin implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     private ?string $NomAdmin = null;
@@ -19,15 +34,74 @@ class Admin
     #[ORM\Column(length: 255)]
     private ?string $PrenomAdmin = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $EmailAdmin = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $MotDePasse = null;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNomAdmin(): ?string
@@ -50,30 +124,6 @@ class Admin
     public function setPrenomAdmin(string $PrenomAdmin): static
     {
         $this->PrenomAdmin = $PrenomAdmin;
-
-        return $this;
-    }
-
-    public function getEmailAdmin(): ?string
-    {
-        return $this->EmailAdmin;
-    }
-
-    public function setEmailAdmin(string $EmailAdmin): static
-    {
-        $this->EmailAdmin = $EmailAdmin;
-
-        return $this;
-    }
-
-    public function getMotDePasse(): ?string
-    {
-        return $this->MotDePasse;
-    }
-
-    public function setMotDePasse(string $MotDePasse): static
-    {
-        $this->MotDePasse = $MotDePasse;
 
         return $this;
     }
