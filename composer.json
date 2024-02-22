@@ -11,12 +11,15 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.18",
+        "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.0.*",
-        "symfony/runtime": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/runtime": "*",
+        "symfony/ux-twig-component": "*",
+        "symfony/yaml": "6.0.*",
+        "twig/extra-bundle": "^3.8"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.50"
