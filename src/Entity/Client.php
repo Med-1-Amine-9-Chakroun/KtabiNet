@@ -31,10 +31,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $NomClient = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $PrenomClient = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $AdresseEmail = null;
+    private ?string $PrenomClient = null;   
 
     #[ORM\Column(length: 255)]
     private ?string $NumTel = null;
@@ -129,18 +126,6 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenomClient(string $PrenomClient): static
     {
         $this->PrenomClient = $PrenomClient;
-
-        return $this;
-    }
-
-    public function getAdresseEmail(): ?string
-    {
-        return $this->AdresseEmail;
-    }
-
-    public function setAdresseEmail(string $AdresseEmail): static
-    {
-        $this->AdresseEmail = $AdresseEmail;
 
         return $this;
     }
