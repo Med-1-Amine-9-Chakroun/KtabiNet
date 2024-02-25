@@ -44,18 +44,14 @@ class ClientFormType extends AbstractType
             ],
             'label' => 'Numéro Téléphone',
         ])
-        ->add('password', PasswordType::class, [
-            'attr' => [
-                'class' => 'form-control bg-trasparent block border-b-2 w-full h-20 text-6xl ouline-none',
-            ],
-            'label' => 'Mot de passe actuelle',
-        ])
+      
         ->add('NewPassword', PasswordType::class, [
             'attr' => [
                 'class' => 'form-control bg-trasparent block border-b-2 w-full h-20 text-6xl ouline-none',
             ],
             'mapped' => false,
             'label' => 'Nouveau mot de passe',
+            'required' => false
         ])
         ->add('confirmNewPassword', PasswordType::class, [
             'attr' => [
@@ -63,10 +59,11 @@ class ClientFormType extends AbstractType
             ],
             'mapped' => false,
             'label' => 'Confirmer mot de passe',
+            'required' => false
         ])
         ->add('checkMeOut', CheckboxType::class, [
             'attr' => [
-                'class' => 'ml-2'
+                'class' => 'ml-2 mt-3'
             ],
             'label' => 'Accepter les modifications:',
             'mapped' => false,
