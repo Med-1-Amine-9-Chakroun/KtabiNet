@@ -16,12 +16,12 @@
     </head>
     <body>
 
-        <div class="container-fluid" style="height: 100vh;">
-            <div class="row" style="height: 100vh;">
+        <div class="container-fluid" style="height: 93vh;">
+            <div class="row" style="height: 93vh;">
                 {# NavBar Content #}
                 {% block mainNav %} 
                     <nav class=" navbar navbar-expand-lg lighten-1 navbar-dark bg-dark" style="height: 7vh; width:100%; ">
-                        <a class="navbar-brand" href="#">Navbar</a>
+                        <a class="navbar-brand" href="#">KtabiNet</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
                             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -42,9 +42,9 @@
                         </div>                        
                     </nav>
                 {% endblock %}
-                
+
                 {% block navbar %} 
-                    <nav class=" d-none d-md-block sidebar " style="height: 100vh; width: 13%; background-color: #2d2d2d;">
+                    <nav class=" d-none d-md-block sidebar " style="height: 93vh; width: 13%; background-color: #2d2d2d;">
 
 
                         <div class="space" style="height: 10vh;"></div>
@@ -75,14 +75,15 @@
                                 </li>
                                 <hr>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
+                                    <a class="nav-link text-white" href="dashboard">
                                     <i class="fa-solid fa-chart-line"></i> &nbsp;
                                         Dashboard
                                     </a>
                                 </li>
                                 <li class="nav-item mt-3">
                                     <a class="nav-link text-white" href="#">
-                                    
+                                    <i class="fa-solid fa-users"></i> &nbsp;
+                                    Gérer utilisateurs
                                     </a>
                                 </li>
                                 <li class="nav-item mt-3">
@@ -100,11 +101,11 @@
                 {% block main %} 
                     
 
-                        <div class="column" style="height: 100vh; width:87%;">
+                        <div class="column" style="height: 93vh; width:87%;">
                             
             
                             <main role="main"  style="height: 93vh; width:100%; ">                                        
-                                <div class="content m-10">
+                                <div class="content " style="width:100%;">
                                     {% block mainContent %} 
                                     {% endblock %}
                                 </div>
