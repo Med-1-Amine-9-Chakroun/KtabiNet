@@ -26,8 +26,11 @@ class Commentaire
     #[ORM\ManyToOne]
     private ?Client $IdClient = null;
 
-    #[ORM\Column]
-    private ?int $IdLivre = null;
+    #[ORM\ManyToOne]
+    private ?LivreReel $IdLivreReel = null;
+
+    #[ORM\ManyToOne]
+    private ?LivrePdf $IdLivrePdf = null;
 
     public function getId(): ?int
     {
@@ -82,14 +85,26 @@ class Commentaire
         return $this;
     }
 
-    public function getIdLivre(): ?int
+    public function getIdLivreReel(): ?LivreReel
     {
-        return $this->IdLivre;
+        return $this->IdLivreReel;
     }
 
-    public function setIdLivre(int $IdLivre): static
+    public function setIdLivreReel(?LivreReel $IdLivreReel): static
     {
-        $this->IdLivre = $IdLivre;
+        $this->IdLivreReel = $IdLivreReel;
+
+        return $this;
+    }
+
+    public function getIdLivrePdf(): ?LivrePdf
+    {
+        return $this->IdLivrePdf;
+    }
+
+    public function setIdLivrePdf(?LivrePdf $IdLivrePdf): static
+    {
+        $this->IdLivrePdf = $IdLivrePdf;
 
         return $this;
     }
