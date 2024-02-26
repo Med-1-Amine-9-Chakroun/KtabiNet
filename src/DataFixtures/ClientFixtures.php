@@ -11,62 +11,63 @@ class ClientFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Example 1
-        $client1 = new Client(); 
-        $client1->setEmail("client1@gmail.com");
-        $client1->setNomClient("Azer");
-        $client1->setPrenomClient("Romdhani");
-        $client1->setNumTel("97643152");
-        $client1->setPassword("1234");
-        // Enregistrez l'entité dans la base de données            
+        $client1 = new Client();
+        $client1->setEmail("client1@gmail.com")
+            ->setNomClient("Azer")
+            ->setPrenomClient("Romdhani")
+            ->setNumTel("97643152")
+            ->setPassword("1234");
+
+        // Persist and flush
         $manager->persist($client1);
-    
-        // Flush pour appliquer les changements
         $manager->flush();
 
-
+        // Assigning reference to client_1
+        $this->addReference('client_1', $client1);
 
         // Example 2
-        $client2 = new Client(); 
-        $client2->setEmail("client2@gmail.com");
-        $client2->setNomClient("Ahmed");
-        $client2->setPrenomClient("Allani");
-        $client2->setNumTel("97643152");
-        $client2->setPassword("1234");
-        // Enregistrez l'entité dans la base de données            
+        $client2 = new Client();
+        $client2->setEmail("client2@gmail.com")
+            ->setNomClient("Ahmed")
+            ->setPrenomClient("Allani")
+            ->setNumTel("97643152")
+            ->setPassword("1234");
+
+        // Persist and flush
         $manager->persist($client2);
-    
-        // Flush pour appliquer les changements
         $manager->flush();
 
+        // Assigning reference to client_2
+        $this->addReference('client_2', $client2);
 
         // Example 3
-        $client3 = new Client(); 
-        $client3->setEmail("client3@gmail.com");
-        $client3->setNomClient("Ramzi");
-        $client3->setPrenomClient("Aamri");
-        $client3->setNumTel("97643152");
-        $client3->setPassword("1234");
-        // Enregistrez l'entité dans la base de données            
+        $client3 = new Client();
+        $client3->setEmail("client3@gmail.com")
+            ->setNomClient("Ramzi")
+            ->setPrenomClient("Aamri")
+            ->setNumTel("97643152")
+            ->setPassword("1234");
+
+        // Persist and flush
         $manager->persist($client3);
-    
-        // Flush pour appliquer les changements
         $manager->flush();
 
+        // Assigning reference to client_3
+        $this->addReference('client_3', $client3);
 
         // Example 4
-        $client4 = new Client(); 
-        $client4->setEmail("client4@gmail.com");
-        $client4->setNomClient("Anis");
-        $client4->setPrenomClient("Ben Romdhane");
-        $client4->setNumTel("97643152");
-        $client4->setPassword("1234");
-        // Enregistrez l'entité dans la base de données            
+        $client4 = new Client();
+        $client4->setEmail("client4@gmail.com")
+            ->setNomClient("Anis")
+            ->setPrenomClient("Ben Romdhane")
+            ->setNumTel("97643152")
+            ->setPassword("1234");
+
+        // Persist and flush
         $manager->persist($client4);
-    
-        // Flush pour appliquer les changements
         $manager->flush();
-    
-    
-            
+
+        // Assigning reference to client_4
+        $this->addReference('client_4', $client4);
     }
 }
