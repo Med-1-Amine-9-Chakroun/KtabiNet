@@ -11,17 +11,26 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.18",
+        "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
+        "symfony/form": "6.0.*",
         "symfony/framework-bundle": "6.0.*",
-        "symfony/runtime": "*",
-        "symfony/ux-twig-component": "*",
+        "symfony/runtime": "6.0.*",
+        "symfony/security-bundle": "6.0.*",
+        "symfony/twig-bundle": "6.0.*",
+        "symfony/validator": "6.0.*",
+        "symfony/webpack-encore-bundle": "^1.17",
         "symfony/yaml": "6.0.*",
+        "twbs/bootstrap": "5.3.3",
         "twig/extra-bundle": "^3.8"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.5",
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^10.5",
         "symfony/maker-bundle": "^1.50"
     },
     "config": {
@@ -60,9 +69,11 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
+            "php bin/console doctrine:fixtures:load --no-interaction",
             "@auto-scripts"
         ],
         "post-update-cmd": [
+            "php bin/console doctrine:fixtures:load --no-interaction",
             "@auto-scripts"
         ]
     },

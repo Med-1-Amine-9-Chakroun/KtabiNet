@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,9 +34,6 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $PrenomClient = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $AdresseEmail = null;
 
     #[ORM\Column(length: 255)]
     private ?string $NumTel = null;
@@ -133,18 +132,6 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdresseEmail(): ?string
-    {
-        return $this->AdresseEmail;
-    }
-
-    public function setAdresseEmail(string $AdresseEmail): static
-    {
-        $this->AdresseEmail = $AdresseEmail;
-
-        return $this;
-    }
-
     public function getNumTel(): ?string
     {
         return $this->NumTel;
@@ -155,5 +142,9 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         $this->NumTel = $NumTel;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return "Client: " . $this->getNomClient(); // Replace 'getName' with your actual method
     }
 }
