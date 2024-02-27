@@ -11,15 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/commande')]
+
 class CommandeController extends AbstractController
 {
-    #[Route('/', name: 'app_commande_index', methods: ['GET'])]
+    #[Route('/commande', name: 'app_commande_index')]
     public function index(CommandeRepository $commandeRepository): Response
     {
-        return $this->render('admin/commande/index.html.twig', [
+
+        return $this->render('admin/commande/index.html.twig'/**, [
             'commandes' => $commandeRepository->findAll(),
-        ]);
+        ]*/);
     }
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
