@@ -19,19 +19,19 @@ class DashboardController extends AbstractController
     private $lr;
     private $commande;
     // private $em;
-     public function __construct(ClientRepository $clientRepository, EntityManagerInterface $em, LivrePdfRepository $lp, LivreReelRepository $lr, CommandeRepository $commande)
-     {
-        $this->em =$em;
-        $this->lp =$lp;
-        $this->lr =$lr;
-        $this->commande =$commande;
+    public function __construct(ClientRepository $clientRepository, EntityManagerInterface $em, LivrePdfRepository $lp, LivreReelRepository $lr, CommandeRepository $commande)
+    {
+        $this->em = $em;
+        $this->lp = $lp;
+        $this->lr = $lr;
+        $this->commande = $commande;
         $this->clientRepository = $clientRepository;
-     }
+    }
 
-     
+
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
-        return $this->render('dashboard/dashboard.html.twig');
+        return $this->render('admin/dashboard/dashboard.html.twig');
     }
 }
