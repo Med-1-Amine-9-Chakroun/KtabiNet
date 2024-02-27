@@ -44,6 +44,9 @@ class LivrePdf
     #[ORM\Column(length: 255)]
     private ?string $UrlPdf = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $UrlImage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class LivrePdf
     public function setUrlPdf(string $UrlPdf): static
     {
         $this->UrlPdf = $UrlPdf;
+
+        return $this;
+    }
+
+    public function getUrlImage(): ?string
+    {
+        return $this->UrlImage;
+    }
+
+    public function setUrlImage(string $UrlImage): static
+    {
+        $this->UrlImage = $UrlImage;
 
         return $this;
     }

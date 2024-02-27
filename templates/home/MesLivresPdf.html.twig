@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MesLivresReelController!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}"> {# Link to your specific CSS file #}
+{% endblock %}
+
+
+{% block body %}
+<section class="flex">
+    {% for livre in livres_pdf %}
+    <section>
+    <a href="{{ path('app_LivrePdf', {'id': livre.id}) }}">
+        <img src="{{ livre.urlImage }}" alt="{{ livre.titre }}" />
+        <h2>{{ livre.titre }}</h2>
+        <p>{{ livre.description }}</p>
+        <aside>
+            <ul>
+                <li>Price: {{ livre.prix }} dt</li>
+                <li>PDF</li>
+            </ul>
+            <button>buy know</button>
+        </aside>
+    </section>
+    {% endfor %}
+
+</section>
+{% endblock %}

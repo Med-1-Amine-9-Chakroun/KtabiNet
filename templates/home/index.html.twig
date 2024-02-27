@@ -3,93 +3,51 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block stylesheets %}
-
     <link rel="stylesheet" href="{{ asset('css/index.css') }}"> {# Link to your specific CSS file #}
 {% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-  <div class="container">
-    <img src="https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg" alt="Welcome Image">
-    <h1 class="display-4">Welcome to KtabyNet</h1>
-
-  </div>
+<div class="jumbotron">
+    <div class="container">
+        <img src="https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_640.jpg" alt="Welcome Image">
+        <h1 class="display-4">Welcome to KtabyNet</h1>
+    </div>
 </div>
-
-
-
+<div class="row hedding m-0 pl-3 pt-0 pb-3">
+        mes liev
+        </div>
 <section class="flex">
+    {% for livre_reel in livres_reel %}
+    
     <section>
-      <img src="https://static.pexels.com/photos/24166/pexels-photo-24166-medium.jpg" alt="Smartphone" />
-      <h2>Smartphone</h2>
-      <p>The best camera is the one that you carry 24/7.</p>
-      <aside>
-        <ul>
-          <li>Price: 450 €</li>
-          <li>In Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>
+    <a href="{{ path('app_LivreReel', {'id': livre_reel.id}) }}">
+        <img src="{{ livre_reel.imageUrl }}" alt="{{ livre_reel.titre }}" />
+        <h2>{{ livre_reel.titre }}</h2>
+        <p>{{ livre_reel.description }}</p>
+        <aside>
+            <ul>
+                <li>Price: {{ livre_reel.prix }} dt</li>
+                <li> In Stock </li>
+            </ul>
+            <button>Add to Cart</button>
+        </aside>
     </section>
+    {% endfor %}
+    
+    {% for livre in livres_pdf %}
     <section>
-      <img src="https://static.pexels.com/photos/191160/pexels-photo-191160-medium.jpeg" alt="Some Old Polaroid Camera" />
-      <h2>Some Old Polaroid Camera That Produces Hipstery Effects</h2>
-      <p>Get hipstery effects.</p>
-      <aside>
-        <ul>
-          <li>Price: 450 €</li>
-          <li>In Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>
+    <a href="{{ path('app_LivrePdf', {'id': livre.id}) }}">
+        <img src="{{ livre.urlImage }}" alt="{{ livre.titre }}" />
+        <h2>{{ livre.titre }}</h2>
+        <p>{{ livre.description }}</p>
+        <aside>
+            <ul>
+                <li>Price: {{ livre.prix }} dt</li>
+                <li>PDF</li>
+            </ul>
+            <button>buy know</button>
+        </aside>
     </section>
-    <section>
-      <img src="https://static.pexels.com/photos/9556/camera-lens-hero-gopro-medium.jpg" alt=">GoPro Hero 4 Silver" />
-      <h2>GoPro Hero 4 Silver</h2>
-      <p>GoPro is de facto choice for anyone interested in extreme sports. The camera has video, photo and timelapse modes, and the low-light capabilities are exceptional.</p>
-      <aside>
-        <ul>
-          <li>Price: 450 €</li>
-          <li>In Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>  
-    </section>
-    <section>
-      <img src="https://static.pexels.com/photos/51383/photo-camera-subject-photographer-51383-medium.jpeg" alt="Nikon something" />
-      <h2>Nikon Something</h2>
-      <p>Kinda passé.</p>  
-      <aside>
-        <ul>
-          <li>Price: 450 €</li>
-          <li>In Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>     
-    </section>
-    <section>
-      <img src="https://static.pexels.com/photos/94753/pexels-photo-94753-medium.jpeg" alt="Some Konica" />
-      <h2>Some Konica</h2>
-      <p>For street photography.</p>
-      <aside>
-        <ul>
-          <li>Price: 450 €</li>
-          <li>In Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>    
-    </section>
-    <section>
-      <img src="https://images.pexels.com/photos/1830/photography-vintage-photo-analog-camera.jpg?h=350&auto=compress&cs=tinysrgb" alt="Some Konica" />
-      <h2>Obsolete Kodak</h2>
-      <p>Mama won't take my Kodachrome</p>
-      <aside>
-        <ul>
-          <li>Price: 100 €</li>
-          <li>Out of Stock</li>
-        </ul>
-        <button>Add to Cart</button>
-      </aside>    
-    </section>    
-  </section>
+    {% endfor %}
+</section>
 {% endblock %}

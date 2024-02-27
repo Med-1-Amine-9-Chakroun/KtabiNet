@@ -2,13 +2,18 @@
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 
 <div class="container">
-
-
     <div class="logo">KtabyNet</div>
+    <img src="" alt="LOGO" class="logo">
+    
     <div class="links">
-        <a href="" class="link">Homepage</a>
-        <a href="" class="link">Contact</a>
-        <a href="" class="link">About</a>
+
+        <a href="{{ path('app_home') }}" class="link">Homepage</a>
+        <a href="{{ path('app_mes_livres_reel') }}" class="link">livres pdf</a>
+        <a href="{{ path('app_mes_livres_pdf') }}" class="link">livres real</a>
+        <a href="" class="link">login</a>
+        <a href="" class="link">logout</a>
+        <a href="" class="link">Register</a>
+
         {# AuthLinks might be included here based on your Symfony setup and requirements #}
     </div>
 
