@@ -26,9 +26,6 @@ class Commande
     #[ORM\Column]
     private ?int $NbreLivres = null;
 
-    #[ORM\Column]
-    private ?int $IdClient = null;
-
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
 
