@@ -5,19 +5,27 @@ namespace App\Entity;
 use App\Repository\CommandeLivreRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommandeLivreRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass: CommandeLivreRepository::class)
+ */
 class CommandeLivre
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column
+     */
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $IdLivre = null;
+    /**
+     * @ORM\Column(name="id_livre")
+     */
+    private ?int $id_livre = null;
 
-    #[ORM\Column]
-    private ?int $IdCommande = null;
+    /**
+     * @ORM\Column
+     */
+    private ?int $id_commande = null;
 
     public function getId(): ?int
     {
@@ -26,24 +34,28 @@ class CommandeLivre
 
     public function getIdLivre(): ?int
     {
-        return $this->IdLivre;
+        return $this->id_livre;
     }
 
-    public function setIdLivre(int $IdLivre): static
+    /**
+     * @param int $id_livre
+     * @return static
+     */
+    public function setIdLivre(int $id_livre): static
     {
-        $this->IdLivre = $IdLivre;
+        $this->id_livre = $id_livre;
 
         return $this;
     }
 
     public function getIdCommande(): ?int
     {
-        return $this->IdCommande;
+        return $this->id_commande;
     }
 
-    public function setIdCommande(int $IdCommande): static
+    public function setIdCommande(int $id_commande): static
     {
-        $this->IdCommande = $IdCommande;
+        $this->id_commande = $id_commande;
 
         return $this;
     }

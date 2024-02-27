@@ -33,7 +33,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $NomClient = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $PrenomClient = null;   
+    private ?string $PrenomClient = null;
 
     #[ORM\Column(length: 255)]
     private ?string $NumTel = null;
@@ -142,5 +142,9 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         $this->NumTel = $NumTel;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return "Client: " . $this->getNomClient(); // Replace 'getName' with your actual method
     }
 }
