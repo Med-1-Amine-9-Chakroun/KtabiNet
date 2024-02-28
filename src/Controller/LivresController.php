@@ -37,6 +37,7 @@ class LivresController extends AbstractController
             'livresReels' => $livresReels,
         ]);
     }
+    ////////////////////////////////////////////////////////////////////////////
 
     //----------------fonction afficher les détails d'un livre reel -------------------//
     #[Route('/admins/stock/livres/{id}', name: 'livre_details')]
