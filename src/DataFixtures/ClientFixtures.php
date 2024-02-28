@@ -16,10 +16,10 @@ class ClientFixtures extends Fixture
         // Generate 100 clients with unique emails and references
         for ($i = 1; $i <= 100; $i++) {
             $client = new Client();
-            $client->setEmail($faker->unique()->email);
-            $client->setNomClient($faker->lastName);
-            $client->setPrenomClient($faker->firstName);
-            $client->setNumTel($faker->phoneNumber);
+            $client->setEmail($faker->unique()->email());
+            $client->setNomClient($faker->lastName());
+            $client->setPrenomClient($faker->firstName());
+            $client->setNumTel($faker->phoneNumber());
             $client->setPassword(password_hash('1234', PASSWORD_BCRYPT));
 
             $manager->persist($client);

@@ -1,12 +1,12 @@
-{% extends 'adminbase.html.twig' %}
+{% extends "./AdminBase.html.twig" %}
 
 {% block title %}Liste de commandes
 {% endblock %}
 
-{% block body %}
-	<div class="container mt-4">
+{% block mainContent %}
+	<div class="container mt-4"  style="overflow: auto; height:89vh ; width: 100%;">
 		<h1>Liste de commandes</h1>
-		<br><br>	
+		<br>	
 		<table class="table table-hover" id="example">
 			<thead>
 				<tr>
