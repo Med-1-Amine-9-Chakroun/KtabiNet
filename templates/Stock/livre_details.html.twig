@@ -1,0 +1,26 @@
+{% extends './adminbase.html.twig' %}
+
+{% block title %} Détails du Livre {% endblock %}
+
+{% block mainContent %}
+    <div class="container mt-5">
+        <img src="{{ livreReel.getImageUrl() }}" alt="Image du livre" style="max-width: 200px; height: 300px;">
+        
+        <h1>{{ livreReel.titre }}</h1>
+        <p><strong>Auteur:</strong> {{ livreReel.auteur }}</p>
+        <p><strong>Prix:</strong> {{ livreReel.prix }}</p>
+        <p><strong>Description:</strong> {{ livreReel.description }}</p>
+        <p><strong>Categorie:</strong> {{ livreReel.categorie }}</p>
+        <p><strong>Nombre de Pages:</strong> {{ livreReel.nbrPage }}</p>
+        <p><strong>Solde:</strong> {{ livreReel.solde }}</p>
+        <p><strong>Date de Publication:</strong> {{ livreReel.datePublication|date('Y-m-d') }}</p>
+        <p><strong>Langue:</strong> {{ livreReel.langue }}</p>
+        <p><strong>Stock:</strong> {{ livreReel.stock }}</p>
+    
+        {# Vous pouvez ajouter plus de détails en fonction de vos propriétés de l'entité LivreReel #}
+    
+        {# Exemple de bouton de retour pour revenir à la liste #}
+        <a href="{{ path('liste_livres') }}" class="btn btn-primary">Retour à la liste des livres</a>
+    </div>
+{% endblock %}
+

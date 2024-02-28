@@ -1,0 +1,17 @@
+{% extends "./adminbase.html.twig" %}
+
+{% block title %} Stock {% endblock %}
+
+{% block stylesheets %}
+    {# Ajoutez ici les fichiers CSS spécifiques à l'index s'il y en a #}
+{% endblock %}
+
+{% block javascripts %}
+    {# Ajoutez ici les fichiers JavaScript spécifiques à l'index s'il y en a #}
+{% endblock %}
+
+{% block mainContent %}
+    <div>
+        {{ include('Stock/formulaire.html.twig') }}
+    </div>
+{% endblock %}
