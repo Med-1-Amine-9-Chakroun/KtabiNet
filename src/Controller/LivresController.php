@@ -33,7 +33,7 @@ class LivresController extends AbstractController
         $livreReelRepository = $entityManager->getRepository(LivreReel::class);
         $livresReels = $livreReelRepository->findAll();
 
-        return $this->render('Stock\index.html.twig', [
+        return $this->render('admin\Stock\index.html.twig', [
             'livresReels' => $livresReels,
         ]);
     }
@@ -50,7 +50,7 @@ class LivresController extends AbstractController
             throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
         }
 
-        return $this->render('Stock\livre_details.html.twig', [
+        return $this->render('admin\Stock\livre_details.html.twig', [
             'livreReel' => $livreReel,
         ]);
     }
@@ -59,7 +59,7 @@ class LivresController extends AbstractController
     #[Route("/admins/Stock/ajouter", name: "ajouter_page")]
     public function ajouterPage(): Response
     {
-        return $this->render('/Stock/Ajouter.html.twig');
+        return $this->render('/admin/Stock/Ajouter.html.twig');
     }
 
     #[Route("/admins/Stock/ajouter", name: "ajouter_page", methods: ["GET", "POST"])]
@@ -94,13 +94,13 @@ class LivresController extends AbstractController
 
                 return $this->redirectToRoute('liste_livres');
             } catch (\Exception $e) {
-                return $this->render('/Stock/error.html.twig', [
+                return $this->render('admin/Stock/error.html.twig', [
                     'error' => 'An error occurred while saving the book.'
                 ]);
             }
         }
 
-        return $this->render('/Stock/Ajouter.html.twig', [
+        return $this->render('admin/Stock/Ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -143,13 +143,13 @@ public function modifierLivre(EntityManagerInterface $entityManager, Request $re
 
             return $this->redirectToRoute('liste_livres');
         } catch (\Exception $e) {
-            return $this->render('/Stock/error.html.twig', [
+            return $this->render('admin/Stock/error.html.twig', [
                 'error' => 'An error occurred while updating the book.'
             ]);
         }
     }
 
-    return $this->render('Stock\modifier_livre.html.twig', [
+    return $this->render('admin\Stock\modifier_livre.html.twig', [
         'form' => $form->createView(),
     ]);
 }
