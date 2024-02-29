@@ -1,0 +1,17 @@
+{% extends './adminbase.html.twig' %}
+
+{% block title %} Modifier Livre {% endblock %}
+
+{% block mainContent %}
+    <div class="container mt-5">
+        <h1>Modifier Livre</h1>
+    
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Modifier</button>
+        {{ form_end(form) }}
+    
+        <a href="{{ path('liste_livres') }}" class="btn btn-secondary">Retour à la liste des livres</a>
+    </div>
+     <dir></dir>
+{% endblock %}
