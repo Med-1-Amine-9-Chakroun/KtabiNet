@@ -34,9 +34,6 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $PrenomAdmin = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
-
     public function getId(): ?int
     {
         return $this->id;
