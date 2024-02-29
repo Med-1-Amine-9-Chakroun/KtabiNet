@@ -65,7 +65,8 @@ class ClientsController extends AbstractController
             $newcmdp = $form->get('confirmNewPassword')->getData();
             if($newcmdp && $newmdp){
                 // MDP a verifier sil correspend au cnfrm mdp
-                $client->setPassword($form->get('confirmNewPassword')->getData());
+                $client->setPassword(password_hash($form->get('confirmNewPassword')->getData(), PASSWORD_BCRYPT));
+               
             }
             $this->em->flush();
             // Route A modifier
