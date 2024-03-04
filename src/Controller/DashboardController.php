@@ -32,6 +32,12 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard/dashboard.html.twig');
+
+        $data = ['mois' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+        'vente' =>[5, 6, 48, 65, 1, 0, 10]];
+        $jsonData = json_encode($data);
+        return $this->render('admin/dashboard/dashboard.html.twig',[
+            'data' => $jsonData
+        ]);
     }
 }
