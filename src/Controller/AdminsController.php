@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Form\AdminFromType;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,12 +62,14 @@ class AdminsController extends AbstractController
             $newmdp = $form->get('NewPassword')->getData();
             $newcmdp = $form->get('confirmNewPassword')->getData();
             if($newcmdp && $newmdp){
-                // MDP a verifier sil correspend au cnfrm mdp
                 $admin->setPassword($form->get('confirmNewPassword')->getData());
             }
             $this->em->flush();
             // Route A modifier
-            return $this->redirectToRoute('dashboard');
+            return $this->render('admin/EditProfile.html.twig', [
+                'admin' => $admin,
+                'form' => $form->createView()
+            ]);
         }
 
         return $this->render('admin/EditProfile.html.twig', [

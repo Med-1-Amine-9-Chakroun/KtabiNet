@@ -3,25 +3,81 @@
 
 {% block mainContent %}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="result"></div>
+<button id="startButton">Démarrer la reconnaissance vocale</button>
+<script>
+    // Vérifier si l'API de reconnaissance vocale est prise en charge par le navigateur
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        // Créer un objet de reconnaissance vocale
+        var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+        // Définir la langue de reconnaissance vocale
+        recognition.lang = 'fr-FR';
+
+        // Définir le mode de reconnaissance continue
+        recognition.continuous = true;
+
+        // Tableau pour stocker les valeurs
+        var values = [];
+
+        // Événement déclenché lorsqu'un résultat vocal est détecté
+        recognition.onresult = function(event) {
+            var transcriptions = Array.from(event.results)
+                .map(result => result[0].transcript.toLowerCase());
+
+            console.log('Résultats de la reconnaissance vocale :', transcriptions);
+            
+
+            // Ajouter les nouvelles valeurs au tableau
+            values = values.concat(transcriptions);
+	
+			processUserRequest(transcriptions);
+
+            // Afficher les valeurs dans un élément HTML (facultatif)
+            document.getElementById('results').innerText = 'Valeurs : ' + values.join(', ');
+        };
+
+        // Événement déclenché lorsqu'il y a une erreur dans la reconnaissance vocale
+        recognition.onerror = function(event) {
+            console.error('Erreur de reconnaissance vocale :', event.error);
+        };
+
+        // Associer l'événement de démarrage de la reconnaissance vocale au bouton
+        document.getElementById('startButton').addEventListener('click', function() {
+            // Démarrer la reconnaissance vocale
+            recognition.start();
+        });
+		 // Fonction pour traiter la demande de l'utilisateur
+        function processUserRequest(request) {
+            // Environnement fictif - utilisez une vraie bibliothèque ou API de NLP dans un environnement de production
+            var response = fakeNlpProcessing(request);
+
+            // Afficher la réponse dans un élément HTML (facultatif)
+            document.getElementById('results').innerText = 'Réponse : ' + response;
+            document.getElementById('result').innerText = 'Réponse : ' + response;
+        }
+
+        // Fonction fictive pour le traitement du langage naturel (remplacez par une vraie solution)
+        function fakeNlpProcessing(request) {
+            // Logique fictive pour déterminer la réponse
+			console.log('frfr');
+            if (request.includes('synonyme')) {
+                return 'Le synonyme est une réponse fictive.';
+            } else if (request.includes('définition')) {
+                return 'La définition est une réponse fictive.';
+            } else {
+                return 'Je ne comprends pas la demande.';
+            }
+        }
 
 
+    } else {
+        alert("L'API de reconnaissance vocale n'est pas prise en charge par votre navigateur.");
+    }
+</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="results"></div>
+<div id="result"></div>
 
 
 
@@ -296,4 +352,5 @@
 			<div class="card-footer text-muted"></div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}

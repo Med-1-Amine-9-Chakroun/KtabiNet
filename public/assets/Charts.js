@@ -26,8 +26,30 @@ function chart(element){
     const data1 = {
       labels: labels,
       datasets: [{
-        label: 'My First Dataset',
+        label: 'My First Dqsdqsdataset',
         data: [65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      },{
+        label: 'My First Dqsdqsdataset',
+        data: [10, 100, 20, 81, 26, 55, 40],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
@@ -76,7 +98,7 @@ function chart(element){
 const data2 = {
     labels: labels,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'My Firqqst Dataset',
       data: [65, 59, 80, 81, 56, 55, 40],
       backgroundColor: [
         'rgb(201, 203, 207, 0.2)',
@@ -149,15 +171,22 @@ new Chart(ctx3, {
           'April'
         ],
         datasets: [{
-          type: 'bar',
+          type: 'line',
           label: 'Bar Dataset',
-          data: [10, 20, 30, 40],
+          data: [10, 50, 30, 40],
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.2)'
         }, {
           type: 'line',
           label: 'Line Dataset',
-          data: [50, 50, 50, 50],
+          data: [5, 10, 50, 20],
+          fill: false,
+          borderColor: 'rgb(54, 162, 235)'
+        }
+        , {
+          type: 'bar',
+          label: 'Line Dataset',
+          data: [115, 10, 50, 20],
           fill: false,
           borderColor: 'rgb(54, 162, 235)'
         }]

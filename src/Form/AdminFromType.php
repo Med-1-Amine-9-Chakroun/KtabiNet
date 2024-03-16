@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Form;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints\MatchPassword;
 use App\Entity\Admin;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\AbstractType;
@@ -23,12 +24,24 @@ class AdminFromType extends AbstractType
                 'class' => 'form-control bg-trasparent block border-b-2 border-secondary w-full h-20 text-6xl ouline-none',
             ],
             'label' => 'Nom',
+            // 'constraints' => [
+            //     new Assert\Regex([
+            //         'pattern' => '/^[A-Za-z]+$/',
+            //         'message' => 'Le nom doit contenir uniquement des lettres.',
+            //     ]),
+            // ],
         ])
         ->add('PrenomAdmin', TextType::class, [
             'attr' => [
                 'class' => 'form-control bg-trasparent block border-secondary border-b-2 w-full h-20 text-6xl ouline-none',
             ],
             'label' => 'Prenom',
+            // 'constraints' => [
+            //     new Assert\Regex([
+            //         'pattern' => '/^[A-Za-z]+$/',
+            //         'message' => 'Le prénom doit contenir uniquement des lettres.',
+            //     ]),
+            // ],
         ])
         ->add('email', EmailType::class, [
             'attr' => [
@@ -51,8 +64,13 @@ class AdminFromType extends AbstractType
             ],
             'mapped' => false,
             'label' => 'Confirmer mot de passe',
-            'required' => false
+            'required' => false,
+            'constraints' => [              
+                new MatchPassword(),
+            ],
+           
         ])
+       
         ->add('checkMeOut', CheckboxType::class, [
             'attr' => [
                 'class' => 'ml-2 mt-3'
@@ -63,8 +81,11 @@ class AdminFromType extends AbstractType
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
+                
                 ],
+            
         ])
+    
         ->add('submit', SubmitType::class, [
             
             'label' => 'Modifier',

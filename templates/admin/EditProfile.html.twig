@@ -9,6 +9,10 @@
         <div class="container mt-5">
             {{ form_start(form, {'attr': {'class': 'row g-3 justify-content-center'}}) }}
 
+
+
+
+
             <div class="col-md-5 mt-2">
                 {{ form_row(form.NomAdmin) }}
             </div>
@@ -22,14 +26,25 @@
             </div>
         
             
-            <div class="col-md-10 mt-2">
+             <div class="col-md-10 mt-2">
                 {{ form_row(form.NewPassword) }}
             </div>
             
-            <div class="col-md-10 mt-2">
-                {{ form_row(form.confirmNewPassword) }}
+      
+
+            <div class="form-group col-md-10 mt-2">
+                {{ form_label(form.confirmNewPassword, 'Confirmer mot de passe') }}
+                {{ form_widget(form.confirmNewPassword, {'attr': {'class': 'form-control bg-trasparent block border-secondary border-b-2 w-full h-20 text-6xl ouline-none'}}) }}
             </div>
+            <div class="col-md-10 mt-2">
+                <div class="custom-error-style">
+                    {{ form_errors(form.confirmNewPassword) }}
+                </div>
+            </div>
+       
             
+
+
             <div class="col-md-10 mt-3">
                 {{ form_row(form.checkMeOut) }}
             </div>
