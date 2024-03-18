@@ -47,6 +47,9 @@ class LivreReel
     #[ORM\Column(length: 255)]
     private ?string $ImageUrl = null;
 
+    #[ORM\ManyToOne(inversedBy: 'livres')]
+    private ?Category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class LivreReel
     public function setImageUrl(string $ImageUrl): static
     {
         $this->ImageUrl = $ImageUrl;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Entity\LivreReel;
-
+use App\Entity\LivrePdf;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 class LivresController extends AbstractController
@@ -26,47 +27,68 @@ class LivresController extends AbstractController
         ]);
     }
     
-    //----------------fonction afficher tous livres reels -------------------//
-    #[Route('/admins/stock/livres', name: 'liste_livres')]
-    public function listeLivres(EntityManagerInterface $entityManager): Response
-    {
-        $livreReelRepository = $entityManager->getRepository(LivreReel::class);
-        $livresReels = $livreReelRepository->findAll();
-
-        return $this->render('admin\Stock\index.html.twig', [
-            'livresReels' => $livresReels,
-        ]);
+    //----------------- affiche PDF--------------//
+    #[Route('/admin/stock/livre/livrePDF',name:"livrePDF")]
+    public function PDF (EntityManagerInterface $tableManger){
+        $livrePDFRepository = $tableManger->getRepository(LivrePdf::class);
+        $livrePDF= $livrePDFRepository->findAll();
+        return $this->render('admin/Stock/LivrePDF/index.html.twig',['livrePDF'=>$livrePDF]);
     }
-    ////////////////////////////////////////////////////////////////////////////
-
-    //----------------fonction afficher les détails d'un livre reel -------------------//
-    #[Route('/admins/stock/livres/{id}', name: 'livre_details')]
-    public function livreDetails(EntityManagerInterface $entityManager, $id): Response
-    {
-        $livreReelRepository = $entityManager->getRepository(LivreReel::class);
-        $livreReel = $livreReelRepository->find($id);
-
-        if (!$livreReel) {
-            throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
-        }
-
-        return $this->render('admin\Stock\livre_details.html.twig', [
-            'livreReel' => $livreReel,
-        ]);
+    //--------- affiche REEL---------///
+    #[Route('/admin/stock/livre/livreREEL',name:"livreREEL")]
+    public function REEL (EntityManagerInterface $tableManger){
+        $livreREELRepository= $tableManger->getRepository(LivreReel::class);
+        $livreREEL=$livreREELRepository->findAll();
+        return $this->render('admin/Stock/LivreREEL/index.html.twig',['livreREEL'=>$livreREEL]);
     }
-
+    
+    
+    //__________________________________________________________________//
     ////////////////////////ajouter livre réele //////////////////////
-    #[Route("/admins/Stock/ajouter", name: "ajouter_page")]
-    public function ajouterPage(): Response
+    #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
+    public function ajouterPDF(Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('/admin/Stock/Ajouter.html.twig');
+        $livrePDF = new LivrePdf();
+        $form = $this->createFormBuilder($livrePDF)
+            ->add('Titre', TextType::class)
+            ->add('Auteur', TextType::class)
+            ->add('Prix', TextType::class)
+            ->add('Description', TextType::class)
+            ->add('Categorie', TextType::class)
+            ->add('NbrPage', TextType::class)
+            ->add('Solde', TextType::class)
+            ->add('datePublication', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+            ])
+            ->add('langue', TextType::class)
+            ->add('UrlPdf', TextType::class)
+            ->add('UrlImage', TextType::class)
+            
+            ->getForm();
+ 
+        $form->handleRequest($request);
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $livrePDF = $form->getData();
+            $entityManager->persist($livrePDF);
+            $entityManager->flush();
+            return $this->redirectToRoute('livrePDF');
+        }
+ 
+        return $this->render('admin/Stock/LivrePDF/AjouterPDF.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
-
-    #[Route("/admins/Stock/ajouter", name: "ajouter_page", methods: ["GET", "POST"])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+ 
+    
+    //--------- Ajouter REEL---------///
+    #[Route("/admin/stock/livre/ajouterREEL", name: "ajouterREEL", methods: ["GET", "POST"])]
+    public function ajouterREEL(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livreReel = new LivreReel();
-
+ 
+   
         $form = $this->createFormBuilder($livreReel)
             ->add('titre', TextType::class)
             ->add('auteur', TextType::class)
@@ -82,102 +104,205 @@ class LivresController extends AbstractController
             ->add('langue', TextType::class)
             ->add('stock', TextType::class)
             ->add('imageUrl', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create LivreReel'])
+            ->add('category', EntityType::class, [
+             'class' => Category::class,
+             'choice_label' => 'titre',
+             'label' => 'Category',
+         ])
+        
+           
             ->getForm();
-
+ 
         $form->handleRequest($request);
-
+ 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
+           
                 $entityManager->persist($livreReel);
                 $entityManager->flush();
-
-                return $this->redirectToRoute('liste_livres');
-            } catch (\Exception $e) {
-                return $this->render('admin/Stock/error.html.twig', [
-                    'error' => 'An error occurred while saving the book.'
-                ]);
-            }
+ 
+                return $this->redirectToRoute('livreREEL');
+           
         }
-
-        return $this->render('admin/Stock/Ajouter.html.twig', [
+ 
+        return $this->render('admin/Stock/LivreREEL/AjouterREEL.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    ////////////////////////Modifier livre réele //////////////////////
-    /**
- * @Route("/admins/stock/livres/{id}/modifier", name="modifier_livre")
- */
-public function modifierLivre(EntityManagerInterface $entityManager, Request $request, $id): Response
-{
-    $livreReelRepository = $entityManager->getRepository(LivreReel::class);
-    $livreReel = $livreReelRepository->find($id);
-
-    if (!$livreReel) {
-        throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
-    }
-
-    $form = $this->createFormBuilder($livreReel)
-        ->add('titre', TextType::class)
-        ->add('auteur', TextType::class)
-        ->add('prix', TextType::class)
-        ->add('description', TextType::class)
-        ->add('categorie', TextType::class)
-        ->add('nbrPage', TextType::class)
-        ->add('solde', TextType::class)
+    
+     //_______________________________________________________________________________________________________//
+     //--------- afficher detail PDF---------///
+     #[Route('/admin/stock/livre/DetailPDF/{id}',name:'showPDF')]
+     public function showPDF(EntityManagerInterface $entityManager,$id):Response{
+        $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
+        $livrePDF = $livrePDFRepository->find($id); 
+        return $this->render('admin/Stock/LivrePDF/DetailPDF.html.twig',['livrePDF'=> $livrePDF]);
+        
+     }
+ 
+     //--------- afficher detail REEL---------///
+     #[Route('/admin/stock/livre/DetailREEL/{id}',name:'showREEL')]
+     public function showREEL(EntityManagerInterface $entityManager,$id):Response{
+        $livreREELepository = $entityManager->getRepository(LivreReel::class);
+        $livreREEL = $livreREELepository ->find($id); 
+        if (!$livreREEL) {
+            throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
+        }
+        return $this->render('admin/Stock/LivreREEL/DetailREEL.html.twig',['livreReel'=> $livreREEL]);
+        
+     }
+ //_______________________________________________________________________________________________________//
+ //--------- afficher edit PDF---------///
+ #[Route("/admin/stock/livre/{id}/modifierPDF", name: "editPDF", methods: ["GET", "POST"])]
+  
+ public function editPDF(EntityManagerInterface $entityManager, Request $request, $id): Response
+    {
+        $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
+        $livrePDF =  $livrePDFRepository->find($id);
+ 
+        if (!$livrePDF ) {
+            throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
+        }
+ 
+        $form = $this->createFormBuilder($livrePDF )
+        ->add('Titre', TextType::class)
+        ->add('Auteur', TextType::class)
+        ->add('Prix', TextType::class)
+        ->add('Description', TextType::class)
+        ->add('Categorie', TextType::class)
+        ->add('NbrPage', TextType::class)
+        ->add('Solde', TextType::class)
         ->add('datePublication', DateType::class, [
             'widget' => 'single_text',
             'format' => 'yyyy-MM-dd',
         ])
         ->add('langue', TextType::class)
-        ->add('stock', TextType::class)
-        ->add('imageUrl', TextType::class)
-        ->add('save', SubmitType::class, ['label' => 'Modifier LivreReel'])
-        ->getForm();
-
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        try {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('liste_livres');
-        } catch (\Exception $e) {
-            return $this->render('admin/Stock/error.html.twig', [
-                'error' => 'An error occurred while updating the book.'
-            ]);
+        ->add('UrlPdf', TextType::class)
+        ->add('UrlImage', TextType::class)
+            ->getForm();
+ 
+        $form->handleRequest($request);
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+          
+                $entityManager->flush();
+ 
+                return $this->redirectToRoute('livrePDF');
         }
+ 
+        return $this->render('admin/Stock/LivrePDF/EditPDF.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
-
-    return $this->render('admin\Stock\modifier_livre.html.twig', [
-        'form' => $form->createView(),
-    ]);
-}
-/////////////////////////////fonction supprimer /////////////////////////////////////
-/**
-     * @Route("/admins/stock/livres/{id}/supprimer", name="supprimer_livre")
-     */
-    public function supprimerLivre(EntityManagerInterface $entityManager, $id): Response
+ 
+ //--------- afficher edit REEL---------///
+ #[Route("/admin/stock/livre/{id}/modifierREEL", name: "editREEL", methods: ["GET", "POST"])]
+  
+ public function editREEL(EntityManagerInterface $entityManager, Request $request, $id): Response
     {
         $livreReelRepository = $entityManager->getRepository(LivreReel::class);
         $livreReel = $livreReelRepository->find($id);
-
+ 
         if (!$livreReel) {
             throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
         }
-
+ 
+        $form = $this->createFormBuilder($livreReel)
+            ->add('titre', TextType::class)
+            ->add('auteur', TextType::class)
+            ->add('prix', TextType::class)
+            ->add('description', TextType::class)
+            ->add('categorie', TextType::class)
+            ->add('nbrPage', TextType::class)
+            ->add('solde', TextType::class)
+            ->add('datePublication', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+            ])
+            ->add('langue', TextType::class)
+            ->add('stock', TextType::class)
+            ->add('imageUrl', TextType::class)
+            
+            
+            ->getForm();
+ 
+        $form->handleRequest($request);
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+          
+                $entityManager->flush();
+ 
+                return $this->redirectToRoute('livreREEL');
+        }
+ 
+        return $this->render('admin/Stock/LivreREEL/EditREEL.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    //_______________________________________________________________________________________________________//
+ //--------- supprimer PDF---------///
+ #[Route("/admin/stock/livre/{id}/supprimerPDF", name: "suppPDF")]
+ 
+    public function supprimerPDF(EntityManagerInterface $entityManager, $id): Response
+    {
+        $livrepdfRepository = $entityManager->getRepository(LivrePdf::class);
+        $livrepdf = $livrepdfRepository ->find($id);
+ 
+        if (!$livrepdf) {
+            throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
+        }
+ 
+        
+        $entityManager->remove( $livrepdf);
+        $entityManager->flush();
+ 
+        
+        $this->addFlash('success', 'Livre supprimé avec succès.');
+ 
+        return $this->redirectToRoute('livrePDF');
+    }
+ 
+    //--------- supprimer REEL---------///
+    #[Route("/admin/stock/livre/{id}/supprimerREEL", name: "suppREEL")]
+ 
+    public function supprimerREEL(EntityManagerInterface $entityManager, $id): Response
+    {
+        $livreReelRepository = $entityManager->getRepository(LivreReel::class);
+        $livreReel = $livreReelRepository->find($id);
+ 
+        if (!$livreReel) {
+            throw $this->createNotFoundException('Livre non trouvé avec l\'ID ' . $id);
+        }
+ 
         
         $entityManager->remove($livreReel);
         $entityManager->flush();
-
+ 
         
         $this->addFlash('success', 'Livre supprimé avec succès.');
-
-        return $this->redirectToRoute('liste_livres');
+ 
+        return $this->redirectToRoute('livreREEL');
     }
-    //////////////////////::
-   
-   
-}
-
-
+ //_______________________________________________________________________________________________________//
+ //--------- categorie---------///
+ #[Route("/admin/stock/livre/category/newcat", name: "newcategory",methods: ["GET", "POST"])]
+ 
+ public function newCategory(Request $request, EntityManagerInterface $entityManager): Response
+ {
+   $category = new Category();
+   $form = $this->createForm(CategoryType::class,$category);
+   $form->handleRequest($request);
+   if($form->isSubmitted() && $form->isValid()){
+   $livres=$form->getData();
+   $entityManager->persist($category);
+   $entityManager->flush();
+  
+   }
+   return $this->render('admin\Stock\Categorie\AjoutCategory.html.twig',['form'=>$form->createView()]);
+ }
+ 
+ }
+ 
+ 
+ 
+ 
