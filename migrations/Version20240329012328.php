@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240318002345 extends AbstractMigration
+final class Version20240329012328 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,7 @@ final class Version20240318002345 extends AbstractMigration
         $this->addSql('CREATE TABLE client (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, nom_client VARCHAR(255) NOT NULL, prenom_client VARCHAR(255) NOT NULL, num_tel VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_C7440455E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE commande (id INT AUTO_INCREMENT NOT NULL, id_client_id INT DEFAULT NULL, date_commande DATE NOT NULL, prix_total NUMERIC(10, 0) NOT NULL, nbre_livres INT NOT NULL, etat VARCHAR(255) NOT NULL, INDEX IDX_6EEAA67D99DED506 (id_client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE commentaire (id INT AUTO_INCREMENT NOT NULL, id_client_id INT DEFAULT NULL, id_livre_reel_id INT DEFAULT NULL, id_livre_pdf_id INT DEFAULT NULL, contenue VARCHAR(15000) DEFAULT NULL, date DATETIME NOT NULL, evaluation DOUBLE PRECISION DEFAULT NULL, INDEX IDX_67F068BC99DED506 (id_client_id), INDEX IDX_67F068BC74DBB900 (id_livre_reel_id), INDEX IDX_67F068BCD69C7B95 (id_livre_pdf_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE contact (id INT AUTO_INCREMENT NOT NULL, full_name VARCHAR(50) DEFAULT NULL, email VARCHAR(180) NOT NULL, sujet VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, create_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE conversation (id INT AUTO_INCREMENT NOT NULL, id_client_id INT DEFAULT NULL, date_heure DATETIME NOT NULL, INDEX IDX_8A8E26E999DED506 (id_client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE livre_pdf (id INT AUTO_INCREMENT NOT NULL, titre VARCHAR(255) NOT NULL, auteur VARCHAR(255) NOT NULL, prix DOUBLE PRECISION NOT NULL, description VARCHAR(2500) NOT NULL, categorie VARCHAR(255) NOT NULL, nbr_page INT NOT NULL, solde DOUBLE PRECISION NOT NULL, date_publication DATE NOT NULL, langue VARCHAR(255) NOT NULL, url_pdf VARCHAR(255) NOT NULL, url_image VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE livre_reel (id INT AUTO_INCREMENT NOT NULL, category_id INT DEFAULT NULL, titre VARCHAR(255) NOT NULL, auteur VARCHAR(255) NOT NULL, prix DOUBLE PRECISION NOT NULL, description VARCHAR(2500) NOT NULL, categorie VARCHAR(255) NOT NULL, nbr_page INT NOT NULL, solde DOUBLE PRECISION NOT NULL, date_publication DATE NOT NULL, langue VARCHAR(255) NOT NULL, stock INT NOT NULL, image_url VARCHAR(255) NOT NULL, INDEX IDX_F887F7DC12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -60,6 +61,7 @@ final class Version20240318002345 extends AbstractMigration
         $this->addSql('DROP TABLE client');
         $this->addSql('DROP TABLE commande');
         $this->addSql('DROP TABLE commentaire');
+        $this->addSql('DROP TABLE contact');
         $this->addSql('DROP TABLE conversation');
         $this->addSql('DROP TABLE livre_pdf');
         $this->addSql('DROP TABLE livre_reel');

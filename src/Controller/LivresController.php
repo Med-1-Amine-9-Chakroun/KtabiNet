@@ -6,6 +6,7 @@ use App\Form\CategoryType;
 use App\Entity\LivreReel;
 use App\Entity\LivrePdf;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Dompdf\Options;
 
 
 class LivresController extends AbstractController
@@ -131,13 +133,13 @@ class LivresController extends AbstractController
     
      //_______________________________________________________________________________________________________//
      //--------- afficher detail PDF---------///
-     #[Route('/admin/stock/livre/DetailPDF/{id}',name:'showPDF')]
-     public function showPDF(EntityManagerInterface $entityManager,$id):Response{
-        $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
-        $livrePDF = $livrePDFRepository->find($id); 
-        return $this->render('admin/Stock/LivrePDF/DetailPDF.html.twig',['livrePDF'=> $livrePDF]);
+    //  #[Route('/admin/stock/livre/DetailPDF/{id}',name:'showPDF')]
+    //  public function showPDF(EntityManagerInterface $entityManager,$id):Response{
+    //     $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
+    //     $livrePDF = $livrePDFRepository->find($id); 
+    //     return $this->render('admin/Stock/LivrePDF/DetailPDF.html.twig',['livrePDF'=> $livrePDF]);
         
-     }
+    //  }
  
      //--------- afficher detail REEL---------///
      #[Route('/admin/stock/livre/DetailREEL/{id}',name:'showREEL')]
@@ -285,22 +287,76 @@ class LivresController extends AbstractController
     }
  //_______________________________________________________________________________________________________//
  //--------- categorie---------///
- #[Route("/admin/stock/livre/category/newcat", name: "newcategory",methods: ["GET", "POST"])]
- 
+ #[Route("/admin/stock/livre/category/newcat", name: "newcategory", methods: ["GET", "POST"])]
  public function newCategory(Request $request, EntityManagerInterface $entityManager): Response
  {
-   $category = new Category();
-   $form = $this->createForm(CategoryType::class,$category);
-   $form->handleRequest($request);
-   if($form->isSubmitted() && $form->isValid()){
-   $livres=$form->getData();
-   $entityManager->persist($category);
-   $entityManager->flush();
-  
-   }
-   return $this->render('admin\Stock\Categorie\AjoutCategory.html.twig',['form'=>$form->createView()]);
- }
+     $category = new Category();
+     $form = $this->createForm(CategoryType::class, $category);
+     $form->handleRequest($request);
  
+     if ($form->isSubmitted() && $form->isValid()) {
+         $entityManager->persist($category);
+         $entityManager->flush();
+         $this->addFlash('success', 'Catégorie ajouté avec succès !');
+     }
+ 
+     return $this->render('admin\Stock\Categorie\AjoutCategory.html.twig', [
+         'form' => $form->createView()
+     ]);
+ }
+
+ //////////access PDF ///////////////////////
+ private $domPdf;
+ public function __construct(){
+    $this->domPdf = new Dompdf();
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont','Garamond'); 
+    $this->domPdf->setOptions($pdfOptions);
+ }
+ private function affichePDFfile($html)
+{
+    $domPdf = new Dompdf();
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Garamond');
+    $domPdf->setOptions($pdfOptions);
+
+    $domPdf->loadHtml($html);
+    $domPdf->render();
+    $domPdf->stream("details.pdf", [
+        'Attachment' => false
+    ]);
+}
+public function generateBinaryPDF($html){
+    $this->domPdf->loadHtml($html);
+    $this->domPdf->render();
+    $this->domPdf->output();
+}
+//  #[Route('/pdf/{id}',name:'livre.pdf')]
+//  public function generatepdf(LivrePdf $LivrePdf = null, LivresController $pdf){
+//    $html = $this->render('admin/Stock/LivrePDF/DetailPDF.html.twig',['livrePDFF '=>$LivrePdf]);
+//  $pdf->affichePDFfile($html);
+// }
+ //--------- afficher detail PDF---------///
+ #[Route('/admin/stock/livre/DetailPDF/{id}', name: 'showPDF')]
+ public function showPDF(EntityManagerInterface $entityManager, $id): Response
+ {
+     $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
+     $livrePDF = $livrePDFRepository->find($id);
+ 
+     if (!$livrePDF) {
+         throw $this->createNotFoundException('Livre PDF non trouvé avec l\'ID ' . $id);
+     }
+ 
+     // Render the Twig template to get the HTML content
+     $html = $this->renderView('admin/Stock/LivrePDF/DetailPDF.html.twig', ['livrePDF' => $livrePDF]);
+ 
+     // Generate the PDF
+     $this->affichePDFfile($html);
+ 
+     // Return a response (optional)
+     return new Response();
+ }
+
  }
  
  

@@ -2,32 +2,47 @@
 
 {% block title %} Détails du Livre PDF{% endblock %}
 
+
+
+{% block   navbar %}
+  
+{% endblock %}
+    
+
 {% block mainContent %}
-<div class="d-flex justify-content-center align-items-center mt-5" style="width: 770px; height: 650px;">
-    <div class="card" style="width: 200%;"> <!-- Ajustez la largeur selon vos besoins -->
-        <div class="card-body">
-            <h1 class="card-title">{{ livrePDF.titre }}</h1> 
-            <h5 class="card-title">Titre de la carte </h5>
-            <p class="card-title"><strong>Auteur :</strong> {{ livrePDF.auteur }}</p>
-            <p class="card-title" ><strong>Prix :</strong> {{ livrePDF.prix }}</p>
-            <p class="card-text"><strong>Catégorie :</strong> {{ livrePDF.categorie }}</p>
-            <p class="card-text"><strong>Description :</strong> {{ livrePDF.description }}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <p><strong>Nombre de Pages :</strong> {{ livrePDF.nbrPage }}</p>
-            <p class="list-group-item"><strong>Solde :</strong> {{ livrePDF.solde }}</p>
-            <p class="list-group-item" ><strong>Date de Publication :</strong> {{ livrePDF.datePublication|date('Y-m-d') }}</p>
-        </ul>
-        
-        <div class="card-body" style="background:#E5E5E5;" >
-            <p class="card-link"><strong>Langue :</strong> {{ livrePDF.langue }}</p>
-            <p class="card-link"><strong>url PDF :</strong> {{ livrePDF.urlPdf }}</p>
-            <p><a href="{{ path('livrePDF') }}"  class="btn btn-outline-secondary mb-4">retour livre PDF</a></p>
-        </div>
-    </div>
-    <hr style="height: 100px; border: none; border-right: 90px solid #ccc; margin: 0;">
+<div class="container">
     <div>
-        <img src="{{ livrePDF.getUrlImage() }}" style="max-width: 100%; height: auto;">
+        <div>
+            <div>
+                <div>
+                    <h1>{{ livrePDF.titre }}</h1>
+                    <h5>Titre de la carte</h5>
+                </div>
+                <div>
+                    <p><strong>Auteur :</strong> {{ livrePDF.auteur }}</p>
+                    <p><strong>Prix :</strong> {{ livrePDF.prix }}</p>
+                    <p><strong>Catégorie :</strong> {{ livrePDF.categorie }}</p>
+                    <p><strong>Description :</strong> {{ livrePDF.description }}</p>
+                </div>
+                <ul>
+                    <li><strong>Nombre de Pages :</strong> {{ livrePDF.nbrPage }}</li>
+                    <li><strong>Solde :</strong> {{ livrePDF.solde }}</li>
+                    <li><strong>Date de Publication :</strong> {{ livrePDF.datePublication|date('Y-m-d') }}</li>
+                </ul>
+                <div>
+                    <p><strong>Langue :</strong> {{ livrePDF.langue }}</p>
+                    <p><strong>URL PDF :</strong> {{ livrePDF.urlPdf }}</p>
+                    <a href="{{ path('livrePDF') }}">Retour Livre PDF</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <img src="{{ livrePDF.getUrlImage() }}" class="img-fluid" alt="{{ livrePDF.titre }}">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
