@@ -105,7 +105,7 @@
 			<div class="col-md-8">
 				<div class="card bg-white mt-md-0 mt-3">
 					<div class="card-body">
-						<p class="paragraph">L'équipe derrière l'application KtabiNet a uni ses compétences diverses pour créer une plateforme innovante qui révolutionne l'expérience de lecture. En combinant expertise en développement logiciel, design intuitif et connaissances linguistiques, nous avons conçu une application tout-en-un qui répond aux besoins variés des lecteurs passionnés.Vaste Bibliothèque Numérique : KtabiNet abrite une vaste bibliothèque numérique comprenant une variété de genres littéraires, des classiques intemporels aux nouveautés contemporaines. Les utilisateurs peuvent explorer des titres dans des catégories telles que la fiction, la non-fiction, la poésie, les romans graphiques, les livres pour enfants et bien plus encore.</p>
+						<p class="paragraph">L'équipe derrière l'application KtabiNet a uni ses compétences diverses pour créer une plateforme innovante qui révolutionne l'expérience de lecture. En combinant expertise en développement logiciel, design intuitif et connaissances linguistiques, nous avons conçu une application tout-en-un qui répond aux besoins variés des lecteurs passionnés.</p>
 					</div>
 				</div>
 				<br>
@@ -115,9 +115,9 @@
 </div>
 <hr>
 <br><br>
-<section class="container">
+<div class="container">
 	<h1 style="text-align:center;">Services</h1>
-	<section class="services">
+	<section id="services" class="services">
 		{% for service in services %}
 			<div class="card">
 				<img src="{{ asset('assets/images/' ~ service.image) }}" class="card-img-top" alt="{{ service.name }}">
@@ -130,12 +130,12 @@
 			</div>
 		{% endfor %}
 	</section>
-</section>
+</div>
 <br><br>
 <hr>
-<section class="container">
+<div class="container">
 	<h1 style="text-align:center;">Team Members</h1>
-	<section class="team-members">
+	<section id="team" class="team-members">
 		{% for member in teamMembers %}
 			<div class="card">
 				<img src="{{ asset('assets/images/' ~ member.image) }}" class="card-img-top" alt="{{ member.name }}">
@@ -147,8 +147,8 @@
 			</div>
 		{% endfor %}
 	</section>
-	<br><br>
-</section>{% endblock %}{% block footer %}
+</div>
+<br><br>{% endblock %}{% block footer %}
 <footer>
 	<div class="container">
 		<div class="row">
