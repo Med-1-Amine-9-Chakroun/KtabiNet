@@ -1,0 +1,126 @@
+
+/* Styles for the about section */
+.about-section {
+  background-color: #a5774a; /* Light gray background */
+  padding: 50px 0; /* Add some padding */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items */
+}
+.about-text .h1 {
+  color:#6E2C00;
+  font-size: 5.5rem; /* Modifier la taille de la balise h1 */
+  font-weight: 700; /* Modifier la taille de la police de la balise h1 */
+  line-height: 1.2; /* Modifier la taille de la ligne de la balise h1 */
+  margin-bottom: 20px; /* Ajouter un espace entre la balise h1 et le texte */
+}
+
+.about-text .paragraph {
+  font-size: 1.2rem; /* Modifier la taille de la balise p */
+}
+
+.about-section .book-image {
+  max-width: 100%; /* Rendre l'image responsive */
+  max-height: 300px; /* Définir une hauteur maximale pour l'image */
+  border-radius: 8px; /* Ajouter un léger arrondi aux coins */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajouter une ombre subtile */
+}
+
+/* Aligner l'image à droite */
+@media (min-width: 768px) {
+  .about-section .book-image {
+    float: right;
+  }
+}
+
+.about-container {
+  width: 50%; /* Take up 50% of container */
+  max-width: 500px; /* Limit text width */
+}
+
+.about-container h1,
+.about-container p {
+  width: 100%; /* Ensure text takes full width */
+  max-width: 100%; /* Limit text width */
+  text-align: left; /* Align text to the left */
+  font-family: 'Poppins', sans-serif; /* Set font to Poppins */
+}
+
+.about-container img {
+  max-width: 100%; /* Make images responsive */
+  border-radius: 8px; /* Add a slight border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+ 
+/* Styles for the services section */
+.services {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to new line */
+  justify-content: center; /* Center items horizontally */
+  margin-top: 50px; /* Add space above section */
+}
+
+.services .card {
+  width: calc(33.33% - 30px); /* Set width for card (3 cards per row) */
+  margin: 15px; /* Add margin between cards */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a darker shadow */
+}
+
+.services .card img {
+  border-top-left-radius: 8px; /* Add border radius to top left corner */
+  border-top-right-radius: 8px; /* Add border radius to top right corner */
+}
+
+.services .card-title {
+  color: #343a40; /* Dark text color */
+}
+
+.services .card-text {
+  color: #6c757d; /* Medium dark text color */
+}
+
+/* Styles for the team members section */
+.team-members {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to new line */
+  justify-content: center; /* Center items horizontally */
+  margin-top: 50px; /* Add space above section */
+}
+
+.team-members .card {
+  width: calc(33.33% - 30px); /* Set width for card (3 cards per row) */
+  margin: 15px; /* Add margin between cards */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a darker shadow */
+}
+
+.team-members .card img {
+  border-top-left-radius: 8px; /* Add border radius to top left corner */
+  border-top-right-radius: 8px; /* Add border radius to top right corner */
+}
+
+.team-members .card-title {
+  color: #343a40; /* Dark text color */
+}
+
+.team-members .card-text {
+  color: #6c757d; /* Medium dark text color */
+}
+
+/* Styles for the footer */
+footer {
+  background-color: #a5774a; /* Dark background color */
+  padding: 20px 0; /* Add padding */
+  text-align: center; /* Center-align content */
+}
+
+.social-icon {
+  color: #fff; /* White icon color */
+  font-size: 24px; /* Icon size */
+  margin: 0 10px; /* Add space between icons */
+}
+
+.social-icon:hover {
+  color: #dfd5d5; /* Change icon color on hover */
+}
+  
