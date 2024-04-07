@@ -17,7 +17,7 @@ class AboutController extends AbstractController
         $services = [
             ['image' => 'real-book.jpg', 'name' => 'Selling Best books', 'description' => 'Le service "Selling Best books" offre une sélection soigneusement choisie des meilleurs livres disponibles. '],
             ['image' => 'ebook.jpeg', 'name' => 'Reading Online books', 'description' => '"Reading Online books" vous offre la possibilité de plonger dans un univers infini de connaissances et de divertissement littéraire sans jamais quitter votre écran.'],
-            ['image' => 'chatbot.jpg', 'name' => 'Chatbot', 'description' => 'Notre service de Chatbot est conçu pour vous offrir une expérience client exceptionnelle et personnalisée. '],
+            ['image' => 'Robot.jpeg', 'name' => 'Chatbot', 'description' => 'Notre service de Chatbot est conçu pour vous offrir une expérience client exceptionnelle et personnalisée. '],
             ['image' => 'best-offer.jpg', 'name' => 'Best books ', 'description' => '"Best books" vous propose une sélection exquise des livres les mieux notés et les plus appréciés par les lecteurs du monde entier.'],
         ];
 
