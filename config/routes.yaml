@@ -7,8 +7,14 @@ kernel:
   type: annotation
 
 dashboard:
-  path: /dashboard
-  controller: App\Controller\DashboardController::index
+  path: /dashboard  controller: App\Controller\DashboardController::index
+
+
+save_message:
+    path: /save-message
+    controller: App\Controller\SaveMessageController::save
+    methods: POST
+
 
 errors:
   path: /{fallbackRoute}
