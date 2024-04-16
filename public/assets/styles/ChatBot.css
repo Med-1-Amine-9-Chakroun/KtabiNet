@@ -184,7 +184,9 @@ h1, .h1 {
     transition: ease-out 0.4s;
 }
 
-
+.dashboard-toolbar{
+    padding-left: 20px;
+}
 
 
 .dashboard-nav-item:hover {

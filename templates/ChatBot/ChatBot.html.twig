@@ -141,7 +141,9 @@
         function processUserRequest(request) {
             // Environnement fictif - utilisez une vraie bibliothèque ou API de NLP dans un environnement de production
             var response = fakeNlpProcessing(request);
+            console.log("*************************");
             console.log(response);
+            console.log("*************************");
             CreateMessage(request[request.length-1]);
           
         }
