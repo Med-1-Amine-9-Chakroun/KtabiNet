@@ -48,7 +48,7 @@
 		<div class="content mt-5"  id="myChartContainer" data-chart-data="{{ data | json_encode | e }}">
 		{# Linge 1 #}
 			<div class="row">
-			{# Charte 1 #}
+				{# Charte 1 #}
 				<div class="col-md-6">
 					<div class="card">
 						<div class="card-header text-center" style="font-weight: bolder;">
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-			{# Charte 2 #}
+			    {# Charte 2 #}
 				<div class="col-md-6">
 					<div class="card">
 						<div class="card-header text-center" style="font-weight: bolder;">
@@ -73,16 +73,42 @@
 			</div>
 
 
-	 {# Linge 2 #}
+			<div class="row mt-4">
+				{# Charte 1 #}
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header text-center" style="font-weight: bolder;">
+							Flous / Mois
+						</div>
+						<div class="card-body">
+							<canvas id="myChart3"></canvas>
+						</div>
+					</div>
+				</div>
+			    {# Charte 2 #}
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header text-center" style="font-weight: bolder;">
+							Commande / Mois
+						</div>
+						<div class="card-body">
+							<canvas id="myChart4"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	 
+	 {# Linge 3 #}
 		<div class="row mt-4" style="max-height:100vh">
 		{# left side #}
-<div class="col-md-6">
+			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header text-center" style="font-weight: bolder;">
 					Livre PDF/ Catégorie
 					</div>
 					<div class="card-body">
-						<canvas id="myChart4"></canvas>
+						<canvas id="myChart5"></canvas>
 					</div>
 				</div>
 			</div>
@@ -94,11 +120,14 @@
 					Livre reel/ Catégorie
 					</div>
 					<div class="card-body">
-						<canvas id="myChart5"></canvas>
+						<canvas id="myChart6"></canvas>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
+
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
