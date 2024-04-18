@@ -76,9 +76,9 @@ class DashboardController extends AbstractController
         /*************************************** */
 
 
+        $flousPmois = $this->commande->getTotalPrixByMonthLivrer();
 
-
-
+        $cmmndePmois = $this->commande->getNombreCommandesParMois();
 
         $data = [
             'lp'=> count($lp),
@@ -87,7 +87,9 @@ class DashboardController extends AbstractController
             'client'=> count($clientRepository),
             'lpC'=> $livresPdfParCategorie,
             'lrC'=> $livresReelParCategorie,
-            'mois' => ['Janffffvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+            'flousPmois'=> $flousPmois,
+            'cmdPmois'=> $cmmndePmois,
+            'mois' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
         'vente' =>[5, 6, 48, 165, 1, 0, 10]];
         $jsonData = json_encode($data);
         return $this->render('admin/dashboard/dashboard.html.twig',[

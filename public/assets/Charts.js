@@ -15,6 +15,42 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function chart(element){
+/**************************** */
+/****FLOUS PAR MOIS */
+/**************************** */
+console.log(typeof element["flousPmois"]);
+console.log( element["flousPmois"]);
+let flous = element["flousPmois"];
+// Trier les clés de l'objet
+const clesTrie = Object.keys(flous).sort((a, b) => a - b);
+
+// Créer un tableau de paires clé-valeur triées
+let floustableau = clesTrie.map(cle => ({ [cle]: flous[cle] }));
+console.log(floustableau);
+
+floustableau = floustableau.map(element => Object.values(element)[0]);
+
+console.log(floustableau);
+
+
+/**************************** */
+/****COMMANDE PAR MOIS */
+/**************************** */
+console.log(typeof element["cmdPmois"]);
+console.log( element["cmdPmois"]);
+let cpm = element["cmdPmois"];
+// Trier les clés de l'objet
+const clesTriecpm = Object.keys(cpm).sort((a, b) => a - b);
+
+// Créer un tableau de paires clé-valeur triées
+let cpmtableau = clesTrie.map(cle => ({ [cle]: cpm[cle] }));
+console.log(cpmtableau);
+
+cpmtableau = cpmtableau.map(element => Object.values(element)[0]);
+
+console.log(cpmtableau);
+
+
 /********************************************* */
 /********************************************* */
 /* NBR CLIENT / COMMANDE / LIVREPDF / LIVRE REEL
@@ -57,30 +93,8 @@ const val5 = Object.values(element['lrC']);
     const data1 = {
       labels: labels,
       datasets: [{
-        label: 'My First Daset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      },{
-        label: 'My First Dqsdqsdataset',
-        data: [10, 100, 20, 81, 26, 55, 40],
+        label: 'Janvier',
+        data: floustableau,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
@@ -127,10 +141,10 @@ const val5 = Object.values(element['lrC']);
 const data2 = {
     labels: labels,
     datasets: [{
-      label: 'My Firqqst Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
+      label: 'Janvier',
+      data: cpmtableau,
       backgroundColor: [
-        'rgb(201, 203, 207, 0.2)',
+        'rgb(5, 44, 207, 0.2)',
         'rgb(153, 102, 255, 0.2)',
         'rgb(54, 162, 235, 0.2)',
         'rgb(75, 192, 192, 0.2)',
@@ -139,7 +153,7 @@ const data2 = {
         'rgb(255, 99, 132, 0.2)'
       ],
       borderColor: [   
-      'rgb(201, 203, 207)',
+      'rgb(5, 44, 207)',
       'rgb(153, 102, 255)',
       'rgb(54, 162, 235)',
       'rgb(75, 192, 192)',
