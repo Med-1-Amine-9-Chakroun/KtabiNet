@@ -1,7 +1,7 @@
 const ctx = document.getElementById('myChart');
 const ctx1 = document.getElementById('myChart1');
 const ctx2 = document.getElementById('myChart2');
-const ctx3 = document.getElementById('myChart3');
+// const ctx3 = document.getElementById('myChart3');
 const ctx4 = document.getElementById('myChart4');
 const ctx5 = document.getElementById('myChart5');
 
@@ -11,9 +11,41 @@ document.addEventListener("DOMContentLoaded", function() {
     var chartData = JSON.parse(chartDataElement.getAttribute('data-chart-data'));
     var chartData = JSON.parse(chartData);
     chart(chartData);
+
 });
 
 function chart(element){
+/********************************************* */
+/********************************************* */
+/* NBR CLIENT / COMMANDE / LIVREPDF / LIVRE REEL
+/********************************************* */
+/********************************************* */
+var nbrLp = document.getElementById("lp");
+var nbrLr = document.getElementById("lr");
+var nbrCommande = document.getElementById("lcomm");
+var nbrClient = document.getElementById("lclient");
+
+nbrLp.innerText = element['lp'];
+nbrLr.innerText = element['lr'];
+nbrCommande.innerText = element['commande'];
+nbrClient.innerText = element['client'];
+
+
+
+//************************** */
+//************************** */
+/*var variables*/
+//************************** */
+//************************** */
+/*****CHART 4 */
+const labels4 = Object.keys(element['lpC']);
+const val4 = Object.values(element['lpC']);
+/*****CHART 5 */
+const labels5 = Object.keys(element['lrC']);
+const val5 = Object.values(element['lrC']);
+
+//************************** */
+//************************** */
 /******************************************************************************************* */
 /******************************************************************************************* */
 /* ***                               CHART 1                                             *** */
@@ -22,11 +54,10 @@ function chart(element){
 
 
     const labels =element['mois'];
-    console.log("azer");
     const data1 = {
       labels: labels,
       datasets: [{
-        label: 'My First Dqsdqsdataset',
+        label: 'My First Daset',
         data: [65, 59, 80, 81, 56, 55, 40],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -72,8 +103,6 @@ function chart(element){
       }]
     };
     
-
-
           
     new Chart(ctx1, {
         type: 'bar',
@@ -139,7 +168,7 @@ const data2 = {
 /******************************************************************************************* */
 
 
-const data3 = {
+/*const data3 = {
     labels: labels,
     datasets: [{
       label: 'My First Dataset',
@@ -154,7 +183,7 @@ new Chart(ctx3, {
     type: 'line',
     data: data3,        
   });
-
+*/
 
 
 /******************************************************************************************* */
@@ -163,7 +192,39 @@ new Chart(ctx3, {
 /******************************************************************************************* */
 /******************************************************************************************* */
 
-      const data4 = {
+
+const data4 = {
+    labels: labels4,
+    datasets: [{
+      label: 'My First Dataset',
+      data: val4,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 0, 255)',
+        'rgb(0, 255, 255)'
+        
+      ],
+      hoverOffset: 4
+    }]
+  };
+          
+    new Chart(ctx4, {
+        type: 'doughnut',
+        data: data4,        
+      });
+
+
+    
+
+
+
+
+    /*  const data4 = {
         labels: [
           'January',
           'February',
@@ -201,11 +262,11 @@ new Chart(ctx3, {
             }
           }
         },
-      });
+      });*/
 
 
 
-
+     
 
       
 /******************************************************************************************* */
@@ -215,19 +276,22 @@ new Chart(ctx3, {
 /******************************************************************************************* */
 
 
+
 const data5 = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow'
-    ],
+    labels: labels5,
     datasets: [{
       label: 'My First Dataset',
-      data: [300, 50, 100],
+      data: val5,
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 0, 255)',
+        'rgb(0, 255, 255)'
+        
       ],
       hoverOffset: 4
     }]
