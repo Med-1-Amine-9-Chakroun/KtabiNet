@@ -37,59 +37,18 @@
                         <div class="chat-history" id="chat-history">
                             <div class="message received">
                                 <div class="message-content">
-                                    <p>User Secondaire: Salut, comment ça va ?</p>
-                                </div>
-                            </div>
-                            <div class="message sent">
-                                <div class="message-content">
-                                    <p>User Principal: Bonjour ! Je vais bien, merci.</p>
+                                    <p>Hi</p>
                                 </div>
                             </div>
                             <div class="message received">
                                 <div class="message-content">
-                                    <p>User Secondaire: Salut, comment ça va ?</p>
+                                    <p>How can i help you today?</p>
                                 </div>
-                            </div>
-                            <div class="message sent">
-                                <div class="message-content">
-                                    <p>User Principal: Bonjour ! Je vais bien, merci.</p>
-                                </div>
-                            </div>
-                            <div class="message received">
-                                <div class="message-content">
-                                    <p>User Secondaire: Salut, comment ça va ?</p>
-                                </div>
-                            </div>
-                            <div class="message sent">
-                                <div class="message-content">
-                                    <p>User Principal: Bonjour ! Je vais bien, merci.</p>
-                                </div>
-                            </div>
-                            <div class="message received">
-                                <div class="message-content">
-                                    <p>User Secondaire: Salut, comment ça va ?</p>
-                                </div>
-                            </div>
-                            <div class="message sent">
-                                <div class="message-content">
-                                    <p>User Principal: Bonjour ! Je vais bien, merci.</p>
-                                </div>
-                            </div>
-                            <div class="message received">
-                                <div class="message-content">
-                                    <p>User Secondaire: Salut, comment ça va ?</p>
-                                </div>
-                            </div>
-                            <div class="message sent">
-                                <div class="message-content">
-                                    <p>User Principal: Bonjour ! Je vais bien, merci.</p>
-                                </div>
-                            </div>
+                            </div>                            
                             <!-- Other messages can be added here -->
                         </div>
                         <div class="chat-input">
-                            <input type="text" placeholder="Type your message...">
-                            <button>Send</button>
+                            
                             <button id="startButton">Démarrer la reconnaissance vocale</button>
                         </div>
                         
@@ -103,7 +62,7 @@
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
         // Définir la langue de reconnaissance vocale
-        recognition.lang = 'fr-FR';
+        recognition.lang = 'en-US';
 
         // Définir le mode de reconnaissance continue
         recognition.continuous = true;
@@ -120,11 +79,8 @@
             
 
             // Ajouter les nouvelles valeurs au tableau
-            values = values.concat(transcriptions);
-	
-			processUserRequest(transcriptions);
-
-       
+            values = values.concat(transcriptions);	
+			processUserRequest(transcriptions);       
         };
 
         // Événement déclenché lorsqu'il y a une erreur dans la reconnaissance vocale
@@ -141,60 +97,102 @@
         function processUserRequest(request) {
             // Environnement fictif - utilisez une vraie bibliothèque ou API de NLP dans un environnement de production
             var response = fakeNlpProcessing(request);
-            console.log(response);
-            CreateMessage(request[request.length-1]);
-          
+            if (response !== false){
+                CreateMessage(request[request.length-1]);
+            }else{
+                CreateBotMessage("To search for synonyms, simply say: synonym of (the word you want synonyms for),");
+                CreateBotMessage("To search for Antonyms, simply say: Antonym of (the word you want Antonyms for).");
+            }
+           
+
+
         }
 
-       
-       
-        /*******************************/
-        /*******************************/
-        /*******************************/
-        /*******************************/
-        /*******************************/
-        
 
-// Fonction pour obtenir les synonymes d'un mot
-function getSynonyms(word) {
-    console.log(axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`));
-    return axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);       
-}
 
-// Fonction pour obtenir les antonymes d'un mot
-function getAntonyms(word) {
-    return axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        
-}
+        // Fonction pour obtenir les synonymes d'un mot
+        function getSynonyms(word) {      
 
-// Fonction fictive pour le traitement du langage naturel
-function fakeNlpProcessing(request, res) {
-    console.log(request);
-    let message = request[request.length-1];
-    if (message.includes('synonyme')) {
-        const word = message.replace('synonyme de', '').trim();
-        return getSynonyms(word);
+            var response = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+            fetch(response).then(responses =>
+            responses.json().then(data=>{
+                try{
+                    for( let words of data){
+                        let definition = words.meanings;
+                        CreateBotMessage("**********************************");
+                        for (let i=0;i<definition.length;i++){
+                            
+                            CreateBotMessage("Part Of Speech: <br> "+definition[i].partOfSpeech);
+                            if (definition[i].definitions[0].definition !== undefined)
+                            CreateBotMessage("Definition: <br> "+definition[i].definitions[0].definition);
+                            if (definition[i].definitions[0].example !== undefined)
+                            CreateBotMessage("Exemple: <br> "+definition[i].definitions[0].example);
+                            CreateBotMessage("**********************************");                         
+                        }
+                    
+                    }
+                }catch(err){
+                    console.log("pas de reponse");
+                }
+            }))       
+        }
 
-    } else if (message.includes('antonyme')) {
-        const word = message.replace('antonyme de', '').trim();
-        return getAntonyms(word); 
+        // Fonction pour obtenir les antonymes d'un mot
+        function getAntonyms(word) {
+            var response = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+            let exist = false;
+            fetch(response).then(responses =>
+            responses.json().then(data=>{
+                try{
+                    for( let words of data){
+                    let definition = words.meanings[0].antonyms;
+                    let definition1 = words.meanings;
+                    console.log(definition1);
+                       for (let i=0;i<definition1.length;i++){
+                            if (definition1[i].antonyms !== undefined && definition1[i].antonyms.length !== 0){
+                               console.log(definition1[i].antonyms);
+                                CreateBotMessage("Antonyms: <br> "+definition1[i].antonyms);
+                                exist = true;
+                            }
+                        }
+                    if (definition.length === 0){
+                     
+                        if (!exist)
+                            CreateBotMessage("Sorry there is no antonyms for this word");
+                    }else{
+                        CreateBotMessage(definition);
+                    }
+                    
+                    }
+                }catch(err){
+                    console.log("pas de reponse");
+                }
+            }))       
+                
+        }
 
-    } else {
-        return { response: 'Désolé, je ne comprends pas votre demande.' };
-    }
-}
+        // Fonction fictive pour le traitement du langage naturel
+        function fakeNlpProcessing(request, res) {
+            let message = request[request.length-1];
+            if (message.includes('synonym')) {
+                const word = message.replace('synonym of', '').trim();
+                
+                return getSynonyms(word);
 
-        /*******************************/
-        /*******************************/
-        /*******************************/
-        /*******************************/
-        /*******************************/
+            } else if (message.includes('antonym')) {
+                const word = message.replace('antonym of', '').trim();
+                return getAntonyms(word); 
+
+            } else {
+                return false;
+            }
+        }               
         
         function CreateMessage(request){
             // Création de l'élément <p> avec le texte
 
             const pElement = document.createElement('p');
-            pElement.textContent = request;
+            pElement.innerHTML = request;
 
 
             // Création de l'élément <div> avec la classe "message-content" et ajout de l'élément <p> à l'intérieur
@@ -205,11 +203,34 @@ function fakeNlpProcessing(request, res) {
  
             // Sélection de la div avec la classe "message received" et ajout de l'élément <div> construit à l'intérieur
             const receivedMessageDiv = document.getElementById('chat-history');
-             console.log(receivedMessageDiv);
             receivedMessageDiv.appendChild(messageContentDiv);
+            // Pour faire défiler automatiquement vers le bas lorsqu'un nouveau message est ajouté
+            receivedMessageDiv.scrollTop = receivedMessageDiv.scrollHeight;
 
      
-}
+        }
+
+          function CreateBotMessage(request){
+            // Création de l'élément <p> avec le texte
+
+            const pElement = document.createElement('p');
+            pElement.innerHTML = request;
+
+
+            // Création de l'élément <div> avec la classe "message-content" et ajout de l'élément <p> à l'intérieur
+            const messageContentDiv = document.createElement('div');
+            messageContentDiv.classList.add("message");
+            messageContentDiv.classList.add("received");
+            messageContentDiv.appendChild(pElement);
+ 
+            // Sélection de la div avec la classe "message received" et ajout de l'élément <div> construit à l'intérieur
+            const receivedMessageDiv = document.getElementById('chat-history');
+            receivedMessageDiv.appendChild(messageContentDiv);
+            // Pour faire défiler automatiquement vers le bas lorsqu'un nouveau message est ajouté
+            receivedMessageDiv.scrollTop = receivedMessageDiv.scrollHeight;
+
+     
+        }
 
 
     } else {
