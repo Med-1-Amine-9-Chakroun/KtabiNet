@@ -20,35 +20,37 @@ function chart(element){
 /****FLOUS PAR MOIS */
 /**************************** */
 let flous = element["flousPmois"];
-// Trier les clés de l'objet
-const clesTrie = Object.keys(flous).sort((a, b) => a - b);
+console.log(flous);
+var flousPm = [];
+const tableauIndexe = Object.entries(flous).map(([cle, valeur]) => ({ cle: parseInt(cle, 10), valeur: parseInt(valeur, 10) }));
+let value;
+for (let i = 0; i<12; i++){
+  value = tableauIndexe.find(element => element.cle === i+1)?.valeur;
+  if(value !== undefined){
+    flousPm[i] = value;
+  }else{
+    flousPm[i] = 0;
+  }
 
-// Créer un tableau de paires clé-valeur triées
-let floustableau = clesTrie.map(cle => ({ [cle]: flous[cle] }));
-console.log(floustableau);
-
-floustableau = floustableau.map(element => Object.values(element)[0]);
-
-
-
-
+}
 /**************************** */
 /****COMMANDE PAR MOIS */
 /**************************** */
+let commande = element["cmdPmois"];
+console.log(commande);
+var cmdPm = [];
+const tableauIndexe1 = Object.entries(commande).map(([cle, valeur]) => ({ cle: parseInt(cle, 10), valeur: parseInt(valeur, 10) }));
+for (let i = 0; i<12; i++){
+  value = tableauIndexe1.find(element => element.cle === i+1)?.valeur;
+  if(value !== undefined){
+    cmdPm[i] = value;
+  }else{
+    cmdPm[i] = 0;
+  }
 
-let cpm = element["cmdPmois"];
-// Trier les clés de l'objet
-const clesTriecpm = Object.keys(cpm).sort((a, b) => a - b);
-
-// Créer un tableau de paires clé-valeur triées
-let cpmtableau = clesTriecpm.map(cle => ({ [cle]: cpm[cle] }));
-
-
-cpmtableau = cpmtableau.map(element => Object.values(element)[0]);
-
-
-
-
+}
+console.log(flousPm);
+console.log(commande);
 /********************************************* */
 /********************************************* */
 /* NBR CLIENT / COMMANDE / LIVREPDF / LIVRE REEL
@@ -92,7 +94,7 @@ const val6 = Object.values(element['lrC']);
       labels: labels,
       datasets: [{
         label: 'Flous',
-        data: floustableau,
+        data: flousPm,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',
@@ -112,6 +114,12 @@ const val6 = Object.values(element['lrC']);
           'rgb(201, 203, 207)'
         ],
         borderWidth: 1
+      }, {
+        type: 'line',
+        label: 'Flous',
+        data: flousPm,
+        fill: false,
+        borderColor: 'rgb(255, 99, 132, 0.2)'
       }]
     };
     
@@ -140,7 +148,7 @@ const data2 = {
     labels: labels,
     datasets: [{
       label: 'Nbr Commande',
-      data: cpmtableau,
+      data: cmdPm,
       backgroundColor: [
         'rgb(5, 44, 207, 0.2)',
         'rgb(153, 102, 255, 0.2)',
@@ -159,6 +167,12 @@ const data2 = {
       'rgb(255, 159, 64)',
       'rgb(255, 99, 132)'],
       borderWidth: 1
+    }, {
+      type: 'line',
+      label: 'Nbr Commande',
+      data: cmdPm,
+      fill: false,
+      borderColor: 'rgb(255, 99, 132, 0.2)'
     }]
   };
     new Chart(ctx2, {
@@ -232,7 +246,7 @@ const data4 = {
 const data5 = {
     labels: labels5,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Nbr Books',
       data: val5,
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -250,7 +264,7 @@ const data5 = {
   };
           
     new Chart(ctx5, {
-        type: 'doughnut',
+        type: 'polarArea',
         data: data5,        
       });
 
@@ -316,7 +330,7 @@ const data5 = {
 const data6 = {
     labels: labels6,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Nbr Books',
       data: val6,
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -334,7 +348,7 @@ const data6 = {
   };
           
     new Chart(ctx6, {
-        type: 'doughnut',
+        type: 'polarArea',
         data: data6,        
       });
 
