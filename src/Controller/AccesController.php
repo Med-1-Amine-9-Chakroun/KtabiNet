@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Acces;
 use App\Entity\LivrePdf;
+use App\Repository\AccesRepository;
+use App\Repository\LivrePdfRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,14 +18,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class AccesController extends AbstractController
 {   
     private $entityManager;
+    private $livrePDF;
     private $security;
     private $session;
     private $requestStack;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security,  RequestStack $requestStack)
+    public function __construct(EntityManagerInterface $entityManager,LivrePdfRepository $livrePDF, Security $security,  RequestStack $requestStack)
     {
         $this->entityManager = $entityManager;
         $this->security = $security;
+        $this->livrePDF = $livrePDF;
         $this->requestStack = $requestStack;
     }
     #[Route('/request-access/{id}', name: 'request_access')]
@@ -63,5 +67,47 @@ class AccesController extends AbstractController
         ]);
     }
 
-    
+    #[Route('/lire_livre/{id}', name: 'livre_access')]
+    public function getBooks($id, AccesRepository $accesRepository): Response
+    {
+        
+        $acces = $accesRepository->getAccesParClient($id);
+        $length = count($acces);
+        
+        $datalivres = [];
+        for ($i = 0; $i < $length; $i++) {
+            $datalivre = [];
+            $acces1 = $acces[$i];
+            // Faites quelque chose avec chaque objet Acces, par exemple :
+            $idLivrePdf = $acces1->getIdLivrePdf(); 
+            $livrePdf = $this->livrePDF->findOneBy(['id' => $idLivrePdf]);
+
+            if ($livrePdf) {
+                $datalivre = [
+                    'id' => $livrePdf->getId(),
+                    'Titre' => $livrePdf->getTitre(),
+                    'Auteur' => $livrePdf->getAuteur(),
+                    'Description' => $livrePdf->getDescription(),
+                    'Categorie' => $livrePdf->getCategorie(),
+                    'NbrPage' => $livrePdf->getNbrPage(),
+                    'DatePublication' => $livrePdf->getDatePublication(),
+                    'Langue' => $livrePdf->getLangue(),
+                    'UrlPdf' => $livrePdf->getUrlPdf(),
+                    'UrlImage' => $livrePdf->getUrlImage(),
+                ];
+                // Accéder à la propriété description de LivrePdf
+                $datalivres[$i] = $datalivre;
+                // Afficher la description du LivrePdf
+                
+            } else {
+                // Le LivrePdf avec l'ID spécifié n'existe pas
+            }
+            // dd($livrePdf->getDescription());
+            // Affiche l'ID de chaque objet Acces
+        }
+        dd($datalivres );  
+        return $this->render('listeLivreClient.html.twig', [
+            'acces' => $datalivres,
+        ]);
+    }
 }

@@ -21,6 +21,17 @@ class AccesRepository extends ServiceEntityRepository
         parent::__construct($registry, Acces::class);
     }
 
+
+    public function getAccesParClient(int $idClient)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.IdClient  = :idClient')
+            ->setParameter('idClient', $idClient)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Acces[] Returns an array of Acces objects
 //     */

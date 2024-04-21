@@ -112,7 +112,7 @@ class AdminsController extends AbstractController
             $this->em->flush();
 
             // Ajout avec succès, vous pouvez rediriger vers une autre page
-            return $this->redirectToRoute('app_dashboard'); // Par exemple
+            return $this->redirectToRoute('app_add_admin'); // Par exemple
         }
 
         return $this->render('admin/AddAdmin.html.twig', [
