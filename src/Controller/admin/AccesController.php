@@ -25,10 +25,12 @@ class AccesController extends AbstractController
     #[Route('/{id}/edit', name: 'app_acces_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
     {
+    
         $form = $this->createForm(AccesType::class, $acce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+          
             $entityManager->flush();
 
             return $this->redirectToRoute('app_acces_index', [], Response::HTTP_SEE_OTHER);
