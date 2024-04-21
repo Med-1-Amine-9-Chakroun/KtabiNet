@@ -167,7 +167,8 @@ const data2 = {
       'rgb(255, 159, 64)',
       'rgb(255, 99, 132)'],
       borderWidth: 1
-    }, {
+    }
+    , {
       type: 'line',
       label: 'Nbr Commande',
       data: cmdPm,
@@ -264,7 +265,7 @@ const data5 = {
   };
           
     new Chart(ctx5, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: data5,        
       });
 
@@ -348,7 +349,7 @@ const data6 = {
   };
           
     new Chart(ctx6, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: data6,        
       });
 
