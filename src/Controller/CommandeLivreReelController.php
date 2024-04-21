@@ -39,7 +39,7 @@ class CommandeLivreReelController extends AbstractController
         $cart = $session->get('cart', []);
 
         return $this->render('commande_livre_reel/index.html.twig', [
-            
+            'controller_name' => 'CommandeLivreReelController',
             'cart' => $cart,
         ]);
     }
