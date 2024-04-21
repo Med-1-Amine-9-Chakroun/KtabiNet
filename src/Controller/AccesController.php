@@ -105,8 +105,8 @@ class AccesController extends AbstractController
             // dd($livrePdf->getDescription());
             // Affiche l'ID de chaque objet Acces
         }
-        dd($datalivres );  
-        return $this->render('Client/listeLivreClient.html.twig', [
+        // dd($datalivres );  
+        return $this->render('client/listeLivreClient.html.twig', [
             'acces' => $datalivres,
         ]);
     }
