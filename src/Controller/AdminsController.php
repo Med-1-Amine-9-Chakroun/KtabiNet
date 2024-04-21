@@ -121,32 +121,4 @@ class AdminsController extends AbstractController
     }
 
 
-    // #[Route('/add/admin', name: 'app_add_admin')]
-    // public function addAdmin(Request $request): Response
-    // {
-    //     $admin = new Admin();
-    //     $form = $this->createForm(AddAdminFormType::class);
-
-
-    //     $form->handleRequest($request);
-
-    //     if($form->isSubmitted() && $form->isValid()){   
-            
-    //         $admin->setNomAdmin($form->get('NomAdmin')->getData());
-    //         $admin->setPrenomAdmin($form->get('PrenomAdmin')->getData());
-    //         $admin->setEmail($form->get('email')->getData());
-
-    //         $newmdp = $form->get('Password')->getData();
-    //         $admin->setPassword(password_hash($newmdp, PASSWORD_BCRYPT));
-    //         // dd($admin);
-         
-    //         // $this->em->persist($admin);
-    //         $this->em->flush();
-      
-    //     }
-    //     return $this->render('admin/AddAdmin.html.twig', [
-          
-    //         'form' => $form->createView()
-    //     ]);
-    // }
 }
