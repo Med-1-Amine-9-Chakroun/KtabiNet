@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
     var chartDataElement = document.getElementById('myChartContainer');
     var chartData = JSON.parse(chartDataElement.getAttribute('data-chart-data'));
     var chartData = JSON.parse(chartData);
+    console.log(chartData);
     chart(chartData);
 
 });
 
 function chart(element){
+  console.log(element);
 /**************************** */
 /****FLOUS PAR MOIS */
 /**************************** */
