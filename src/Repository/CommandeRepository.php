@@ -35,6 +35,52 @@ class CommandeRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
+public function getTotalPrixByMonthLivrer()
+{
+    
+  
+    $commandes = $this->createQueryBuilder('c')
+    ->select('c.DateCommande, c.prixTotal')
+    ->where('c.etat = :etat')
+    ->setParameter('etat', 'livrée')
+    ->getQuery()
+    ->getResult();
+
+    $totalPrixByMonth = [];
+
+    foreach ($commandes as $commande) {
+        $mois = $commande['DateCommande']->format('m');
+        $prixTotal = $commande['prixTotal'];
+
+        if (!isset($totalPrixByMonth[$mois])) {
+            $totalPrixByMonth[$mois] = 0;
+        }
+
+        $totalPrixByMonth[$mois] += $prixTotal;
+    }
+    return $totalPrixByMonth;
+}
+public function getNombreCommandesParMois()
+{
+    $commandes = $this->createQueryBuilder('c')
+        ->select('c.DateCommande')
+        ->getQuery()
+        ->getResult();
+
+    $nombreCommandesParMois = [];
+
+    foreach ($commandes as $commande) {
+        $mois = $commande['DateCommande']->format('m');
+
+        if (!isset($nombreCommandesParMois[$mois])) {
+            $nombreCommandesParMois[$mois] = 0;
+        }
+
+        $nombreCommandesParMois[$mois]++;
+    }
+
+    return $nombreCommandesParMois;
+}
 
 //    public function findOneBySomeField($value): ?Commande
 //    {

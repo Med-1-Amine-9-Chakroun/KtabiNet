@@ -32,8 +32,64 @@ class DashboardController extends AbstractController
     #[Route('admin/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
+        $commande = $this->commande->findAll();
+        $lp = $this->lp->findAll();
+        $lr = $this->lr->findAll();
+        $clientRepository = $this->clientRepository->findAll();
+       
+      
+        /*************************************** */
+        /*************************************** */
+        $livrepdf = $this->lp->findAll(); 
+        $livresPdfParCategorie = [];
 
-        $data = ['mois' => ['Janffffvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
+        foreach ($livrepdf as $livre) {
+            $categorie = $livre->getCategorie(); 
+            if (!isset($livresPdfParCategorie[$categorie])) {
+                $livresPdfParCategorie[$categorie] = 1;
+            } else {
+                $livresPdfParCategorie[$categorie]++;
+            }
+        }
+                // dd($livresPdfParCategorie);
+        /*************************************** */
+        /*************************************** */
+
+
+        /*************************************** */
+        /*************************************** */
+        $livrreel = $this->lr->findAll(); 
+
+        
+        $livresReelParCategorie = [];
+        foreach ($livrreel as $livre) {
+            $categorie = $livre->getCategorie(); 
+            if (!isset($livresReelParCategorie[$categorie])) {
+                
+                $livresReelParCategorie[$categorie] = 1;
+            } else {
+                $livresReelParCategorie[$categorie]++;
+            }
+        }
+                // dd($livresReelParCategorie);
+        /*************************************** */
+        /*************************************** */
+
+
+        $flousPmois = $this->commande->getTotalPrixByMonthLivrer();
+
+        $cmmndePmois = $this->commande->getNombreCommandesParMois();
+
+        $data = [
+            'lp'=> count($lp),
+            'lr'=> count($lr),
+            'commande'=> count($commande),
+            'client'=> count($clientRepository),
+            'lpC'=> $livresPdfParCategorie,
+            'lrC'=> $livresReelParCategorie,
+            'flousPmois'=> $flousPmois,
+            'cmdPmois'=> $cmmndePmois,
+            'mois' => ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet'],
         'vente' =>[5, 6, 48, 165, 1, 0, 10]];
         $jsonData = json_encode($data);
         return $this->render('admin/dashboard/dashboard.html.twig',[
