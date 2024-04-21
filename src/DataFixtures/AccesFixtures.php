@@ -17,18 +17,22 @@ class AccesFixtures extends Fixture
         // Load existing LivrePDF entities
         $livres = $manager->getRepository(LivrePdf::class)->findAll();
 
+        // Ensure that there are LivrePdf entities available
+        if (empty($livres)) {
+            // If there are no LivrePdf entities, load LivrePdf fixtures first or create them programmatically
+            // Example: $this->load(LivrePdfFixtures::class);
+            // Then retrieve them again
+            $livres = $manager->getRepository(LivrePdf::class)->findAll();
+        }
+
         // Generate sample data for Acces
-        for ($i = 0; $i < 100; $i++) {
+        foreach ($livres as $livre) {
             $acces = new Acces();
             $acces->setDate($faker->dateTimeBetween('-1 year', 'now'));
             $acces->setAcces($faker->boolean);
+            $acces->setIdLivrePdf($livre);
 
-            // Fetch a random LivrePDF entity only if $livres array is not empty
-            if (!empty($livres)) {
-                $livre = $livres[array_rand($livres)];
-                $acces->setIdLivrePdf($livre->getIdLivrePdf());
-                $manager->persist($acces);
-            }
+            $manager->persist($acces);
         }
 
         $manager->flush();
