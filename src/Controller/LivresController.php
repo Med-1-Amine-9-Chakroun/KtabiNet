@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Acces;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Entity\LivreReel;
@@ -347,15 +348,36 @@ public function generateBinaryPDF($html){
          throw $this->createNotFoundException('Livre PDF non trouvé avec l\'ID ' . $id);
      }
  
-     // Render the Twig template to get the HTML content
      $html = $this->renderView('admin/Stock/LivrePDF/DetailPDF.html.twig', ['livrePDF' => $livrePDF]);
  
-     // Generate the PDF
      $this->affichePDFfile($html);
  
-     // Return a response (optional)
      return new Response();
  }
+ /////////////////////////// accées livre PDF //////////////////////:
+ #[Route('/client/livrePDF/{id}', name: 'lirePDF')]
+ public function lirepdf($id, EntityManagerInterface $entityManager): Response
+ {
+     
+     $accePDFRepository = $entityManager->getRepository(Acces::class);
+     $accePDF = $accePDFRepository->find($id);
+ 
+     if ($accePDF && $accePDF->isAcces()) {
+         $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
+         $livrePDF = $livrePDFRepository->findBy(['id' => $accePDF->getIdLivrePdf()]);
+ 
+         return $this->render('Client/AccePDF/index.html.twig', [
+             'id_client_id' => $accePDF->getIdClient()->getId(),
+             'livre_pdf_id' => $accePDF->getIdLivrePdf()->getId(),
+             'acces' => $accePDF,
+             'livrepdf' => $livrePDF,
+         ]);
+     } else {
+        
+         return new Response('Accès refusé ou enregistrement introuvable', Response::HTTP_NOT_FOUND);
+     }
+    }
+
 
  }
  
