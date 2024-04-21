@@ -106,7 +106,7 @@ class AccesController extends AbstractController
             // Affiche l'ID de chaque objet Acces
         }
         dd($datalivres );  
-        return $this->render('listeLivreClient.html.twig', [
+        return $this->render('Client/listeLivreClient.html.twig', [
             'acces' => $datalivres,
         ]);
     }
