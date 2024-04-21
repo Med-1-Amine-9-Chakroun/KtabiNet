@@ -33,7 +33,6 @@ class CommandeController extends AbstractController
 
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
