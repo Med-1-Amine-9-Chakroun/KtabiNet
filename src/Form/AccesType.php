@@ -15,8 +15,7 @@ class AccesType extends AbstractType
             ->add('Date')
             ->add('Acces')
             ->add('IdClient')
-            ->add('IdLivrePdf')
-        ;
+            ->add('IdLivrePdf');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

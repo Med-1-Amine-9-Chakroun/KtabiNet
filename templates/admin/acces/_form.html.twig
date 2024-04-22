@@ -14,10 +14,10 @@
 			{{ form_label(form.IdClient) }}
 			{{ form_widget(form.IdClient, {'attr': {'class': 'form-control'}}) }}
 		</div>
-		<div class="form-group">
+		{# <div class="form-group">
 			{{ form_label(form.IdLivrePdf) }}
 			{{ form_widget(form.IdLivrePdf, {'attr': {'class': 'form-control'}}) }}
-		</div>
+		</div> #}
 		<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 		{{ form_end(form) }}
 		<div class="container mt-4" style=" width: 100%;">
