@@ -51,6 +51,11 @@ class LivrePdf
     {
         return $this->id;
     }
+    // Dans votre entité LivrePdf
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
 
     public function getTitre(): ?string
     {

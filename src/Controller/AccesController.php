@@ -78,29 +78,31 @@ class AccesController extends AbstractController
         for ($i = 0; $i < $length; $i++) {
             $datalivre = [];
             $acces1 = $acces[$i];
-            // Faites quelque chose avec chaque objet Acces, par exemple :
-            $idLivrePdf = $acces1->getIdLivrePdf(); 
-            $livrePdf = $this->livrePDF->findOneBy(['id' => $idLivrePdf]);
+            if($acces1->isAcces()){
+                // Faites quelque chose avec chaque objet Acces, par exemple :
+                $idLivrePdf = $acces1->getIdLivrePdf(); 
+                $livrePdf = $this->livrePDF->findOneBy(['id' => $idLivrePdf]);
 
-            if ($livrePdf) {
-                $datalivre = [
-                    'id' => $livrePdf->getId(),
-                    'Titre' => $livrePdf->getTitre(),
-                    'Auteur' => $livrePdf->getAuteur(),
-                    'Description' => $livrePdf->getDescription(),
-                    'Categorie' => $livrePdf->getCategorie(),
-                    'NbrPage' => $livrePdf->getNbrPage(),
-                    'DatePublication' => $livrePdf->getDatePublication(),
-                    'Langue' => $livrePdf->getLangue(),
-                    'UrlPdf' => $livrePdf->getUrlPdf(),
-                    'UrlImage' => $livrePdf->getUrlImage(),
-                ];
-                // Accéder à la propriété description de LivrePdf
-                $datalivres[$i] = $datalivre;
-                // Afficher la description du LivrePdf
-                
-            } else {
-                // Le LivrePdf avec l'ID spécifié n'existe pas
+                if ($livrePdf) {
+                    $datalivre = [
+                        'id' => $livrePdf->getId(),
+                        'Titre' => $livrePdf->getTitre(),
+                        'Auteur' => $livrePdf->getAuteur(),
+                        'Description' => $livrePdf->getDescription(),
+                        'Categorie' => $livrePdf->getCategorie(),
+                        'NbrPage' => $livrePdf->getNbrPage(),
+                        'DatePublication' => $livrePdf->getDatePublication(),
+                        'Langue' => $livrePdf->getLangue(),
+                        'UrlPdf' => $livrePdf->getUrlPdf(),
+                        'UrlImage' => $livrePdf->getUrlImage(),
+                    ];
+                    // Accéder à la propriété description de LivrePdf
+                    $datalivres[$i] = $datalivre;
+                    // Afficher la description du LivrePdf
+                    
+                } else {
+                    // Le LivrePdf avec l'ID spécifié n'existe pas
+                }
             }
             // dd($livrePdf->getDescription());
             // Affiche l'ID de chaque objet Acces

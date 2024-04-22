@@ -2,7 +2,9 @@
 
 {% block title %}Liste des accès
 {% endblock %}
-
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
 {% block mainContent %}
 	<div class="container mt-4" style="overflow: auto; height:89vh; width: 100%;">
 		<h1>Liste des accès</h1>
@@ -14,32 +16,32 @@
 					<th scope="col" class="col-1">Date</th>
 					<th scope="col" class="col-1">Accès Autorisé</th>
 					<th scope="col" class="col-1">ID Client</th>
-					<th scope="col" class="col-1">ID Livre PDF</th>
+					{# <th scope="col" class="col-1">ID Livre PDF</th> #}
 					<th scope="col" class="col-1">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% if acces is empty %}
+				{% if accesList is empty %}
 					<tr>
 						<td colspan="6">Aucun enregistrement trouvé</td>
 					</tr>
 				{% else %}
-					{% for acces in acces %}
+					{% for accesItem in accesList %}
 						<tr>
-							<td>{{ acces.id }}</td>
-							<td>{{ acces.Date ? acces.Date|date('Y-m-d') : '' }}</td>
-							<td>{{ acces.Acces ? 'Oui' : 'Non' }}</td>
-							<td>{{ acces.IdClient.id }}</td>
-							<td>
-								{% if acces.IdLivrePdf is not null %}
-									{{ acces.IdLivrePdf.id }}
-								{% else %}
-									N/A
-								{% endif %}
-							</td>
+							<td>{{ accesItem.id }}</td>
+							<td>{{ accesItem.Date ? accesItem.Date|date('Y-m-d') : '' }}</td>
+							<td>{{ accesItem.Acces ? 'Oui' : 'Non' }}</td>
+							<td>{{ accesItem.IdClient.id }}</td>
+							{# <td>
+																					                                {% if accesItem.IdLivrePdf is not null %}
+																					                                    {{ accesItem.IdLivrePdf.id }}
+																					                                {% else %}
+																					                                    N/A
+																					                                {% endif %}
+																					                            </td> #}
 							<td>
 								<div class="btn-group" role="group" aria-label="Actions">
-									<a href="{{ path('app_acces_edit', {'id': acces.id}) }}" class="btn btn-primary">
+									<a href="{{ path('app_acces_edit', {'id': accesItem.id}) }}" class="btn btn-primary">
 										<i class="fas fa-pencil-alt"></i>
 										<span class="sr-only">Modifier</span>
 									</a>
@@ -56,8 +58,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 	 <script>
-					        $(document).ready(function() {
-					            $('#example').DataTable();
-					        });
-					    </script>
+			        $(document).ready(function() {
+			            $('#example').DataTable();
+			        });
+			    </script>
 {% endblock %}
