@@ -34,24 +34,6 @@ class AccesController extends AbstractController
         ]);
     }
 
-<<<<<<< HEAD
-
-
-
-
-    #[Route('/{id}/edit', name: 'app_acces_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, $id, Acces $acce,AccesRepository $accesRepository, EntityManagerInterface $entityManager): Response
-    {
-        $acces = $this->accesRepository->find($id);
-        
-        $form = $this->createForm(AccesType::class, $acces);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-          
-            $this->em->flush();
-
-=======
     #[Route('/admin/acces/{id}/edit', name: 'app_acces_edit')]
     public function edit(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
     {
@@ -60,7 +42,6 @@ class AccesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
->>>>>>> b84061245928e9f0294c202bd88b62b8b2443aab
             return $this->redirectToRoute('app_acces_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -68,7 +49,7 @@ class AccesController extends AbstractController
 // dd($form);
 
         return $this->renderForm('admin/acces/edit.html.twig', [
-            'acce' => $acces,
+            'acce' => $acce,
             'form' => $form,
         ]);
     }
