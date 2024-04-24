@@ -157,7 +157,7 @@ class AdminsController extends AbstractController
                 $form = $this->createForm(LoginFormType::class, $admin);
 
                 $form->handleRequest($request);
-                return $this->render('admin/LogIn.html.twig', [
+                return $this->render('admin/login/LogIn.html.twig', [
                     'error' => 'Email or password is incorrect.',
                     'form' => $form->createView()
                 ]);
