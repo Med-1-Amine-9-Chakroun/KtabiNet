@@ -6,6 +6,7 @@ use App\Entity\Admin;
 use App\Form\AddAdminFormType;
 
 use App\Form\AdminFromType;
+use App\Form\LoginFormType;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -121,4 +122,54 @@ class AdminsController extends AbstractController
     }
 
 
+
+
+
+
+
+
+
+
+
+    #[Route('/login/admin', name: 'app_login_admin')]
+    public function login(Request $request): Response
+    {
+
+
+        $admin = new Admin();
+        $form = $this->createForm(LoginFormType::class, $admin);
+
+        $form->handleRequest($request);
+        // dd($admin->getPassword())
+        // Récupérer les informations d'identification de la requête
+ 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier les informations d'identification dans la base de données
+            
+            
+            $admin = $this->adminRepository->findOneByEmail($admin->getEmail());
+            
+            
+            if (!$admin) {
+                // Les informations d'identification ne sont pas valides, gérer le cas d'échec de connexion
+                // Par exemple, afficher un message d'erreur à l'utilisateur
+                $admin = new Admin();
+                $form = $this->createForm(LoginFormType::class, $admin);
+
+                $form->handleRequest($request);
+                return $this->render('admin/LogIn.html.twig', [
+                    'error' => 'Email or password is incorrect.',
+                    'form' => $form->createView()
+                ]);
+             }
+     
+             return $this->redirectToRoute('admin_dashboard');
+        }
+        // Les informations d'identification sont valides, gérer la connexion réussie
+        // Par exemple, rediriger l'utilisateur vers une page d'accueil ou un tableau de bord administratif
+        
+        return $this->render('admin/login/LogIn.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
