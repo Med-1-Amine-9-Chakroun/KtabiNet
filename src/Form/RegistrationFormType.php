@@ -81,8 +81,21 @@ class RegistrationFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control bg-transparent border-secondary border-b-2 text-6xl outline-none',
                 'placeholder' => 'Prénom',
+                'style' => '    width: 100%;
+                height: 100%;
+                background: transparent;
+                border: none;
+                outline: none;
+                font-size: 1em;
+                color: #162938;
+                font-weight: 600;
+                padding: 0 35px 0 5pxr;'
             ],
             'label' => 'Prénom',
+            'label_attr' => [
+                'class' => 'my-label-class', // CSS class for the label
+                'style' => 'font-size: 18px; color: #fff;', // Additional inline styles for the label
+            ],
             'constraints' => [
                 new Assert\Regex([
                     'pattern' => '/^[A-Za-z]+$/',
