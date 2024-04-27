@@ -1,8 +1,12 @@
+<?php
+
 namespace App\EventListener;
 
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Log\Logger;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -19,8 +23,8 @@ class AccessDeniedListener
     {
         $exception = $event->getThrowable();
 
-        if ($exception instanceof AccessDeniedException) {
-            // Rediriger l'utilisateur vers la page d'accueil
+        if ($exception instanceof AccessDeniedHttpException) {
+            // Redirection vers la page d'accueil (app_home)
             $response = new RedirectResponse($this->urlGenerator->generate('app_home'));
             $event->setResponse($response);
         }

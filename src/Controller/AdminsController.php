@@ -12,6 +12,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,7 @@ class AdminsController extends AbstractController
 
 
     #[Route('/admin/edit/{id}', name: 'app_admin_edit')]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit($id, Request $request): Response
     {
    
@@ -83,21 +85,8 @@ class AdminsController extends AbstractController
         ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     #[Route('/add/admin', name: 'app_add_admin')]
+    #[IsGranted('ROLE_ADMIN')]
     public function addAdmin(Request $request): Response
     {
         $client = new Client();

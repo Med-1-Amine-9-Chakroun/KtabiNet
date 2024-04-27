@@ -6,6 +6,7 @@ use App\Entity\Commande;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, int $id, EntityManagerInterface $entityManager, CommandeRepository $commandeRepository): Response
     {
         $commande = $commandeRepository->find($id);
@@ -47,6 +49,7 @@ class CommandeController extends AbstractController
 
 
     #[Route('delete/{id}', name: 'app_commande_delete', methods: ['POST', 'GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         

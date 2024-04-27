@@ -7,6 +7,7 @@ use App\Form\ClientFormType;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +39,7 @@ class ClientsController extends AbstractController
 
 
     #[Route('/client/edit/{id}', name: 'app_client_edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit($id, Request $request): Response
     {
         $client = $this->clientRepository->find($id);

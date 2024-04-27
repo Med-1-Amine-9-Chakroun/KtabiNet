@@ -20,6 +20,7 @@ security:
             custom_authenticator: App\Security\ClientAuthenticator
             logout:
                 path: app_logout
+                target: app_home
                 # where to redirect after logout
                 # target: app_any_route
             remember_me:
@@ -31,7 +32,14 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-          - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+          - { path: ^/admin/edit/, roles: ROLE_ADMIN }
+          - { path: ^/add/admin, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        #   - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
         #  - { path: ^/profile, roles: ROLE_USER }
 
 # Configuration spécifique aux tests

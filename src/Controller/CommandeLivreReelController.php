@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Entity\Commande;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class CommandeLivreReelController extends AbstractController
@@ -29,6 +30,7 @@ class CommandeLivreReelController extends AbstractController
     }
 
     #[Route('/commande', name: 'app_commande_livre_reel')]
+    #[IsGranted('ROLE_USER')]
     public function index(): Response
     {
         // Retrieve the current request from RequestStack
@@ -44,6 +46,7 @@ class CommandeLivreReelController extends AbstractController
         ]);
     }
     #[Route('/commande/delete/{id}', name: 'app_commande_livre_reel_delete')]
+    #[IsGranted('ROLE_USER')]
     public function deleteFromCart($id): Response
     {
         // Retrieve the current request from RequestStack
@@ -66,6 +69,7 @@ class CommandeLivreReelController extends AbstractController
         return $this->redirectToRoute('app_commande_livre_reel');
     }
     #[Route('/checkout', name: 'app_checkout')]
+    #[IsGranted('ROLE_USER')]
     public function checkout(): Response
     {
         // Retrieve cart items from session

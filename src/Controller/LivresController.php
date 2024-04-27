@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Dompdf\Options;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class LivresController extends AbstractController
 {
@@ -32,6 +32,7 @@ class LivresController extends AbstractController
     
     //----------------- affiche PDF--------------//
     #[Route('/admin/stock/livre/livrePDF',name:"livrePDF")]
+    #[IsGranted('ROLE_ADMIN')]
     public function PDF (EntityManagerInterface $tableManger){
         $livrePDFRepository = $tableManger->getRepository(LivrePdf::class);
         $livrePDF= $livrePDFRepository->findAll();
@@ -39,6 +40,7 @@ class LivresController extends AbstractController
     }
     //--------- affiche REEL---------///
     #[Route('/admin/stock/livre/livreREEL',name:"livreREEL")]
+    #[IsGranted('ROLE_ADMIN')]
     public function REEL (EntityManagerInterface $tableManger){
         $livreREELRepository= $tableManger->getRepository(LivreReel::class);
         $livreREEL=$livreREELRepository->findAll();
@@ -49,6 +51,7 @@ class LivresController extends AbstractController
     //__________________________________________________________________//
     ////////////////////////ajouter livre réele //////////////////////
     #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
+    #[IsGranted('ROLE_ADMIN')]
     public function ajouterPDF(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livrePDF = new LivrePdf();
@@ -87,6 +90,7 @@ class LivresController extends AbstractController
     
     //--------- Ajouter REEL---------///
     #[Route("/admin/stock/livre/ajouterREEL", name: "ajouterREEL", methods: ["GET", "POST"])]
+    #[IsGranted('ROLE_ADMIN')]
     public function ajouterREEL(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livreReel = new LivreReel();
@@ -144,6 +148,7 @@ class LivresController extends AbstractController
  
      //--------- afficher detail REEL---------///
      #[Route('/admin/stock/livre/DetailREEL/{id}',name:'showREEL')]
+     #[IsGranted('ROLE_ADMIN')]
      public function showREEL(EntityManagerInterface $entityManager,$id):Response{
         $livreREELepository = $entityManager->getRepository(LivreReel::class);
         $livreREEL = $livreREELepository ->find($id); 
@@ -156,6 +161,7 @@ class LivresController extends AbstractController
  //_______________________________________________________________________________________________________//
  //--------- afficher edit PDF---------///
  #[Route("/admin/stock/livre/{id}/modifierPDF", name: "editPDF", methods: ["GET", "POST"])]
+ #[IsGranted('ROLE_ADMIN')]
   
  public function editPDF(EntityManagerInterface $entityManager, Request $request, $id): Response
     {
@@ -199,6 +205,7 @@ class LivresController extends AbstractController
  
  //--------- afficher edit REEL---------///
  #[Route("/admin/stock/livre/{id}/modifierREEL", name: "editREEL", methods: ["GET", "POST"])]
+ #[IsGranted('ROLE_ADMIN')]
   
  public function editREEL(EntityManagerInterface $entityManager, Request $request, $id): Response
     {
@@ -245,6 +252,7 @@ class LivresController extends AbstractController
     //_______________________________________________________________________________________________________//
  //--------- supprimer PDF---------///
  #[Route("/admin/stock/livre/{id}/supprimerPDF", name: "suppPDF")]
+ #[IsGranted('ROLE_ADMIN')]
  
     public function supprimerPDF(EntityManagerInterface $entityManager, $id): Response
     {
@@ -267,7 +275,7 @@ class LivresController extends AbstractController
  
     //--------- supprimer REEL---------///
     #[Route("/admin/stock/livre/{id}/supprimerREEL", name: "suppREEL")]
- 
+    #[IsGranted('ROLE_ADMIN')]
     public function supprimerREEL(EntityManagerInterface $entityManager, $id): Response
     {
         $livreReelRepository = $entityManager->getRepository(LivreReel::class);
@@ -289,6 +297,7 @@ class LivresController extends AbstractController
  //_______________________________________________________________________________________________________//
  //--------- categorie---------///
  #[Route("/admin/stock/livre/category/newcat", name: "newcategory", methods: ["GET", "POST"])]
+ #[IsGranted('ROLE_ADMIN')]
  public function newCategory(Request $request, EntityManagerInterface $entityManager): Response
  {
      $category = new Category();
@@ -339,6 +348,7 @@ public function generateBinaryPDF($html){
 // }
  //--------- afficher detail PDF---------///
  #[Route('/admin/stock/livre/DetailPDF/{id}', name: 'showPDF')]
+ #[IsGranted('ROLE_ADMIN')]
  public function showPDF(EntityManagerInterface $entityManager, $id): Response
  {
      $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
@@ -356,6 +366,7 @@ public function generateBinaryPDF($html){
  }
  /////////////////////////// accées livre PDF //////////////////////:
  #[Route('/client/livrePDF/{id}', name: 'lirePDF')]
+ #[IsGranted('ROLE_ADMIN')]
  public function lirepdf($id, EntityManagerInterface $entityManager): Response
  {
      

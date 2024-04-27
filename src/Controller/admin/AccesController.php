@@ -6,6 +6,7 @@ use App\Entity\Acces;
 use App\Form\AccesType;
 use App\Repository\AccesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,7 @@ class AccesController extends AbstractController
     }
 
     #[Route('/admin/acces/{id}/edit', name: 'app_acces_edit')]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AccesType::class, $acce);
@@ -57,6 +59,7 @@ class AccesController extends AbstractController
 
 
     #[Route('/delete/{id}', name: 'app_acces_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($acce);

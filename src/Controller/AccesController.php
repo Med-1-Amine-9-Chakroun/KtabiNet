@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -31,6 +32,7 @@ class AccesController extends AbstractController
         $this->requestStack = $requestStack;
     }
     #[Route('/request-access/{id}', name: 'request_access')]
+    #[IsGranted('ROLE_USER')]
     public function requestAccess(Request $request, $id, EntityManagerInterface $entityManager): Response
     {
         $livrePdf = $entityManager->getRepository(LivrePdf::class)->find($id);
@@ -68,6 +70,7 @@ class AccesController extends AbstractController
     }
 
     #[Route('/lire_livre/{id}', name: 'livre_access')]
+    #[IsGranted('ROLE_USER')]
     public function getBooks($id, AccesRepository $accesRepository): Response
     {
         

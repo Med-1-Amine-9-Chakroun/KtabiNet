@@ -12,8 +12,7 @@
 				<tr>
 					<th scope="col" class="col-1">Id</th>
 					<th scope="col" class="col-2">Email</th>
-					<th scope="col" class="col-2">Roles</th>
-					<th scope="col" class="col-2">Password</th>
+				
 					<th scope="col" class="col-2">NomClient</th>
 					<th scope="col" class="col-2">PrenomClient</th>
 					<th scope="col" class="col-1">NumTel</th>
@@ -30,8 +29,7 @@
 						<tr>
 							<td>{{ client.id }}</td>
 							<td>{{ client.email }}</td>
-							<td>{{ client.roles ? client.roles|json_encode : '' }}</td>
-							<td>{{ client.password }}</td>
+							
 							<td>{{ client.NomClient }}</td>
 							<td>{{ client.PrenomClient }}</td>
 							<td>{{ client.NumTel }}</td>
