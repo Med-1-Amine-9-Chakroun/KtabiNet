@@ -34,18 +34,18 @@ class RegistrationFormType extends AbstractType
                 ]),
             ],
         ])
-        ->add('agreeTerms', CheckboxType::class, [
-            'mapped' => false,
-            'constraints' => [
-                new Assert\IsTrue([
-                    'message' => 'Vous devez accepter nos conditions.',
-                ]),
-            ],
-            'label' => 'Accepter les conditions',
-            'attr' => [
-                'class' => 'form-check-input',
-            ],
-        ])
+        // ->add('agreeTerms', CheckboxType::class, [
+        //     'mapped' => false,
+        //     'constraints' => [
+        //         new Assert\IsTrue([
+        //             'message' => 'Vous devez accepter nos conditions.',
+        //         ]),
+        //     ],
+        //     'label' => 'Accepter les conditions',
+        //     'attr' => [
+        //         'class' => 'form-check-input',
+        //     ],
+        // ])
         ->add('password', PasswordType::class, [
             
             'attr' => [
