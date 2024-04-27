@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Client;
 use App\Form\AddAdminFormType;
-
+use App\Form\AdminFormType;
 use App\Form\AdminFromType;
 use App\Form\LoginFormType;
+use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,12 +24,12 @@ class AdminsController extends AbstractController
 {
 
     private $em;
-    private $adminRepository;
+    private $clientRepository;
     // private $em;
-     public function __construct(AdminRepository $adminRepository, EntityManagerInterface $em)
+     public function __construct(ClientRepository $clientRepository, EntityManagerInterface $em)
      {
         $this->em =$em;
-        $this->adminRepository = $adminRepository;
+        $this->clientRepository = $clientRepository;
      }
 
 
@@ -45,7 +48,7 @@ class AdminsController extends AbstractController
     public function edit($id, Request $request): Response
     {
    
-        $admin = $this->adminRepository->find($id);
+        $admin = $this->clientRepository->find($id);
         // if(!$this->getUser()){
         //     return $this->render('clientBase.html.twig');
         // }
@@ -56,19 +59,16 @@ class AdminsController extends AbstractController
         // dd($client);
 
 
-        $form = $this->createForm(AdminFromType::class, $admin);
+        $form = $this->createForm(AdminFormType::class, $admin);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $admin->setNomAdmin($form->get('NomAdmin')->getData());
-            $admin->setPrenomAdmin($form->get('PrenomAdmin')->getData());
+            $admin->setNomClient($form->get('NomClient')->getData());
+            $admin->setPrenomClient($form->get('PrenomClient')->getData());
             $admin->setEmail($form->get('email')->getData());
 
-            $newmdp = $form->get('NewPassword')->getData();
-            $newcmdp = $form->get('confirmNewPassword')->getData();
-            if($newcmdp && $newmdp){
-                $admin->setPassword($form->get('confirmNewPassword')->getData());
-            }
+            $newmdp = $form->get('password')->getData();
+       
             $this->em->flush();
             // Route A modifier
             return $this->render('admin/EditProfile.html.twig', [
@@ -100,16 +100,18 @@ class AdminsController extends AbstractController
     #[Route('/add/admin', name: 'app_add_admin')]
     public function addAdmin(Request $request): Response
     {
-        $admin = new Admin();
-        $form = $this->createForm(AddAdminFormType::class, $admin);
+        $client = new Client();
+        $form = $this->createForm(RegistrationFormType::class, $client);
 
         $form->handleRequest($request);
         // dd($admin->getPassword());
 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $admin->setPassword(password_hash($admin->getPassword(), PASSWORD_BCRYPT));
-            $this->em->persist($admin);
+            $client->setPassword(password_hash($client->getPassword(), PASSWORD_BCRYPT));
+            $client->setNumTel("12345678");
+            $client->setRoles(['ROLE_ADMIN']);
+            $this->em->persist($client);
             $this->em->flush();
 
             // Ajout avec succès, vous pouvez rediriger vers une autre page
@@ -131,45 +133,5 @@ class AdminsController extends AbstractController
 
 
 
-    #[Route('/login/admin', name: 'app_login_admin')]
-    public function login(Request $request): Response
-    {
-
-
-        $admin = new Admin();
-        $form = $this->createForm(LoginFormType::class, $admin);
-
-        $form->handleRequest($request);
-        // dd($admin->getPassword())
-        // Récupérer les informations d'identification de la requête
- 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Vérifier les informations d'identification dans la base de données
-            
-            
-            $admin = $this->adminRepository->findOneByEmail($admin->getEmail());
-            
-            
-            if (!$admin) {
-                // Les informations d'identification ne sont pas valides, gérer le cas d'échec de connexion
-                // Par exemple, afficher un message d'erreur à l'utilisateur
-                $admin = new Admin();
-                $form = $this->createForm(LoginFormType::class, $admin);
-
-                $form->handleRequest($request);
-                return $this->render('admin/login/LogIn.html.twig', [
-                    'error' => 'Email or password is incorrect.',
-                    'form' => $form->createView()
-                ]);
-             }
-     
-             return $this->redirectToRoute('admin_dashboard');
-        }
-        // Les informations d'identification sont valides, gérer la connexion réussie
-        // Par exemple, rediriger l'utilisateur vers une page d'accueil ou un tableau de bord administratif
-        
-        return $this->render('admin/login/LogIn.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
+   
 }

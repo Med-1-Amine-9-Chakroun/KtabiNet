@@ -60,10 +60,14 @@ class ClientAuthenticator extends AbstractLoginFormAuthenticator
          // Recherche le client par email
          $client = $this->clientRepository->findOneByEmail($email);
         
-        if($client->getRoles()[0] == "ROLE_USER"){
+        if (!$client) {
             return new RedirectResponse($this->urlGenerator->generate('app_home'));
         }else{
-            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+            if($client->getRoles()[0] == "ROLE_USER"){
+                return new RedirectResponse($this->urlGenerator->generate('app_home'));
+            }else{
+                return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+            }
         }
         
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

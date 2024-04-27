@@ -3,21 +3,20 @@
 namespace App\Form;
 
 use App\Entity\Client;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+
+
+
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegistrationFormType extends AbstractType
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class AdminFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,34 +33,33 @@ class RegistrationFormType extends AbstractType
                 ]),
             ],
         ])
-        ->add('agreeTerms', CheckboxType::class, [
-            'mapped' => false,
-            'constraints' => [
-                new Assert\IsTrue([
-                    'message' => 'Vous devez accepter nos conditions.',
-                ]),
-            ],
-            'label' => 'Accepter les conditions',
-            'attr' => [
-                'class' => 'form-check-input',
-            ],
-        ])
+
         ->add('password', PasswordType::class, [
-            
+            'mapped' => false,
+            'required' => false, // Rend le champ non obligatoire
             'attr' => [
                 'class' => 'form-control',
                 'autocomplete' => 'new-password',
                 'placeholder' => 'Mot de passe',
             ],
             'constraints' => [
-                new Assert\NotBlank([
-                    'message' => 'Veuillez entrer un mot de passe.',
-                ]),
-                new Assert\Length([
-                    'min' => 6,
-                    'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères.',
-                    'max' => 4096,
-                ]),
+                new Assert\Callback(function ($value, $context) {
+                    // Vérifier la valeur du champ seulement si elle est non vide
+                    if (!empty($value)) {
+                        // Validation de la longueur du mot de passe
+                        if (strlen($value) < 6) {
+                            $context->buildViolation('Votre mot de passe doit comporter au moins {{ limit }} caractères.')
+                                ->setParameter('{{ limit }}', 6)
+                                ->addViolation();
+                        }
+        
+                        // Validation avec une expression régulière (exemple)
+                        if (!preg_match('/^[A-Za-z0-9]+$/', $value)) {
+                            $context->buildViolation('Votre mot de passe doit contenir uniquement des lettres et des chiffres.')
+                                ->addViolation();
+                        }
+                    }
+                }),
             ],
         ])
         ->add('NomClient', TextType::class, [
