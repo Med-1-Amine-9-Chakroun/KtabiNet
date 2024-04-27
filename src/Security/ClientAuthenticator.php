@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +23,14 @@ class ClientAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+
+    private $clientRepository;
+
+
+
+    public function __construct(private UrlGeneratorInterface $urlGenerator, ClientRepository $clientRepository,)
     {
+        $this->clientRepository = $clientRepository;
     }
 
     public function authenticate(Request $request): Passport
@@ -49,8 +56,16 @@ class ClientAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
+        $email = $request->request->get('email', '');
+         // Recherche le client par email
+         $client = $this->clientRepository->findOneByEmail($email);
         
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        if($client->getRoles()[0] == "ROLE_USER"){
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        }else{
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+        
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
