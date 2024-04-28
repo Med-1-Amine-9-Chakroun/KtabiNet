@@ -85,19 +85,20 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             // Ajout du contrôle pour le champ "Adresse"
-            ->add('Adresse', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control bg-transparent border-secondary border-b-2 text-6xl outline-none',
-                    'placeholder' => 'Adresse',
-                ],
-                'label' => 'Adresse',
-                'constraints' => [
-                    new Assert\Regex([
-                        'pattern' => '/^[A-Za-z0-9\s\-\'\,\.]+$/',
-                        'message' => 'L\'adresse doit contenir uniquement des lettres, des chiffres, des espaces et des caractères spéciaux (\' \ , . -).',
-                    ]),
-                ],
-            ]);
+            // ->add('Adresse', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control bg-transparent border-secondary border-b-2 text-6xl outline-none',
+            //         'placeholder' => 'Adresse',
+            //     ],
+            //     'label' => 'Adresse',
+            //     'constraints' => [
+            //         new Assert\Regex([
+            //             'pattern' => '/^[A-Za-z0-9\s\-\'\,\.]+$/',
+            //             'message' => 'L\'adresse doit contenir uniquement des lettres, des chiffres, des espaces et des caractères spéciaux (\' \ , . -).',
+            //         ]),
+            //     ],
+            // ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
