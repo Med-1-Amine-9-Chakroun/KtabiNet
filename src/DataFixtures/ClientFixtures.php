@@ -14,6 +14,7 @@ class ClientFixtures extends Fixture
         $faker = Factory::create();
 
         // Generate 100 clients with unique emails and references
+        // Generate 100 clients with unique emails and references
         for ($i = 1; $i <= 100; $i++) {
             $client = new Client();
             $client->setEmail($faker->unique()->email());
@@ -28,7 +29,6 @@ class ClientFixtures extends Fixture
             // Assign reference name with current loop iteration
             $this->addReference("client_$i", $client);
         }
-
         $manager->flush();
     }
 }

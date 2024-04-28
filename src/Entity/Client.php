@@ -38,6 +38,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $NumTel = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
