@@ -32,7 +32,7 @@ class AccesType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Type(['type' => 'integer']),
                 ],
-                'choices_as_values' => true,
+                'choice_value' => 'id', // Utilisez l'ID de l'entité comme valeur de choix
             ])
             ->add('IdLivrePdf', EntityType::class, [
                 'class' => LivrePdf::class, // replace this line
@@ -41,6 +41,7 @@ class AccesType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Type(['type' => 'integer']),
                 ],
+                'choice_value' => 'id', // Utilisez l'ID de l'entité comme valeur de choix
             ]);
     }
 
