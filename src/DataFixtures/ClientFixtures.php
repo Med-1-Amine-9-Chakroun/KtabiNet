@@ -21,7 +21,7 @@ class ClientFixtures extends Fixture
             $client->setNomClient($faker->lastName());
             $client->setPrenomClient($faker->firstName());
             $client->setNumTel($faker->phoneNumber());
-            $client->setPassword(password_hash('1234', PASSWORD_BCRYPT));
+            $client->setPassword(password_hash('1234', PASSWORD_BSCRYPT));
             $randomRole = mt_rand(0, 1) === 0 ? 'ROLE_ADMIN' : 'ROLE_USER';
             $client->setRoles([$randomRole]);
             $manager->persist($client);
