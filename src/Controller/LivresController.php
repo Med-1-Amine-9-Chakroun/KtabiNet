@@ -21,9 +21,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class LivresController extends AbstractController
 {
@@ -341,40 +338,8 @@ class LivresController extends AbstractController
     {
         return $this->getUser();
     }
-
-    private function handleLivreAccess($clientId, $livreId, $categorie)
-    {
-        // Vérifie si l'utilisateur est connecté
-        $user = $this->checkUserLoggedIn();
-
-        if ($user) {
-            // L'utilisateur est connecté, ajoute les informations à la table Acces
-            $accesRepository = $this->entityManager->getRepository(Acces::class);
-            $existingAccess = $accesRepository->findOneBy(['idClient' => $clientId, 'idLivrePdf' => $livreId]);
-
-            if (!$existingAccess) {
-                $newAccess = new Acces();
-                $newAccess->setIdClient($clientId);
-                $newAccess->setIdLivrePdf($livreId);
-                $newAccess->setDate(new \DateTime());
-
-                $this->entityManager->persist($newAccess);
-                $this->entityManager->flush();
-            }
-        } else {
-            // L'utilisateur n'est pas connecté, ajoute les informations à la table Data
-            $dataRepository = $this->entityManager->getRepository(Data::class);
-            // Crée une nouvelle instance de Data
-            $newData = new Data();
-            $newData->setIdClient($clientId);
-            $newData->setIdLivre($livreId);
-            $newData->setDateConsult(new \DateTime());
-            // Persiste les données dans la base de données
-            $this->entityManager->persist($newData);
-            $this->entityManager->flush();
-        }
-    }
-
+ 
+    
     private function affichePDFfile($html)
     {
         $domPdf = new Dompdf();

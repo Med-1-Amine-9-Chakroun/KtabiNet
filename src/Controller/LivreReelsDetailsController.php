@@ -29,7 +29,7 @@ class LivreReelsDetailsController extends AbstractController
         $this->requestStack = $requestStack;
     }
 
-    
+
     #[Route('/LivreReels/{id}', name: 'app_LivreReel')]
     public function index(int $id, Request $request): Response
     {
@@ -79,14 +79,14 @@ class LivreReelsDetailsController extends AbstractController
 
         if ($request->isMethod('POST') && $request->request->has('add_to_cart')) {
             $bookId = $LivreReel->getId();
-            $quantity = 1; 
-        
+            $quantity = 1;
+
             // Retrieve cart items from session (or create an empty cart if it doesn't exist)
             $cart = $session->get('cart', []);
-        
+
             // Check if the book is already in the cart
             $existingItemKey = array_search($bookId, array_column($cart, 'id'));
-        
+
             // Update cart data
             if ($existingItemKey !== false) {
                 // If book already exists in cart, update the quantity
