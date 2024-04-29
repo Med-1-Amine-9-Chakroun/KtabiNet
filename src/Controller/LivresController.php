@@ -22,7 +22,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\ValidationPDFType;
 use App\Form\ValidationREELType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 class LivresController extends AbstractController
 {
@@ -290,7 +290,7 @@ class LivresController extends AbstractController
     private $domPdf;
     private $entityManager;
 
-    public function __construct(Security $security, EntityManagerInterface $entityManager)
+    public function __construct( EntityManagerInterface $entityManager)
     {
         $this->domPdf = new Dompdf();
         $pdfOptions = new Options();

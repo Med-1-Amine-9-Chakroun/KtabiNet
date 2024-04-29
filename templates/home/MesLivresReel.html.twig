@@ -41,12 +41,14 @@
 
 <section class="py-5 ">
   
-  <div class="px-4 px-lg-5 mt-5 ">
-        <div class="search-bar">
-      <form action="{{ path('search_route') }}" method="GET">
-        <input type="text" name="query" placeholder="Search...">
-        <button type="submit">Search</button>
-      </form>
+  <div class="px-4 px-lg-5 mt-5 " >
+        <div class="search-bar mb-3">
+        <div hidden>
+          <form action="{{ path('search_route') }}" method="GET" >
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit">Search</button>
+          </form>
+      </div>
       <form action="{{ path('search_route') }}" method="GET">
         <input type="text" name="query" placeholder="Search...">
         <button type="submit">Search</button>
