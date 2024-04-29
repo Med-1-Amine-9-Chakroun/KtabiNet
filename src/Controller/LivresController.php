@@ -20,12 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-<<<<<<< HEAD
-use Symfony\Component\Security\Core\Security;
-=======
 use App\Form\ValidationPDFType;
 use App\Form\ValidationREELType;
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class LivresController extends AbstractController
 {
@@ -67,43 +64,16 @@ class LivresController extends AbstractController
     public function ajouterPDF(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livrePDF = new LivrePdf();
-<<<<<<< HEAD
-        $form = $this->createFormBuilder($livrePDF)
-            ->add('Titre', TextType::class)
-            ->add('Auteur', TextType::class)
-            ->add('Prix', TextType::class)
-            ->add('Description', TextType::class)
-            ->add('Categorie', TextType::class)
-            ->add('NbrPage', TextType::class)
-            ->add('Solde', TextType::class)
-            ->add('datePublication', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('langue', TextType::class)
-            ->add('UrlPdf', TextType::class)
-            ->add('UrlImage', TextType::class)
-
-            ->getForm();
-
-        $form->handleRequest($request);
-
-=======
         $form = $this->createForm(ValidationPDFType::class, $livrePDF);
     
         $form->handleRequest($request);
     
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($livrePDF);
             $entityManager->flush();
             return $this->redirectToRoute('livrePDF');
         }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
         return $this->render('admin/Stock/LivrePDF/AjouterPDF.html.twig', [
             'form' => $form->createView()
         ]);
@@ -118,50 +88,16 @@ class LivresController extends AbstractController
     {
         $livreReel = new LivreReel();
 
-<<<<<<< HEAD
-
-        $form = $this->createFormBuilder($livreReel)
-            ->add('titre', TextType::class)
-            ->add('auteur', TextType::class)
-            ->add('prix', TextType::class)
-            ->add('description', TextType::class)
-            ->add('categorie', TextType::class)
-            ->add('nbrPage', TextType::class)
-            ->add('solde', TextType::class)
-            ->add('datePublication', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('langue', TextType::class)
-            ->add('stock', TextType::class)
-            ->add('imageUrl', TextType::class)
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'titre',
-                'label' => 'Category',
-            ])
-
-
-            ->getForm();
-=======
         $form = $this->createForm(ValidationREELType::class, $livreReel);
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-<<<<<<< HEAD
-
-            $entityManager->persist($livreReel);
-            $entityManager->flush();
-
-=======
             $entityManager->persist($livreReel);
             $entityManager->flush();
 
             $this->addFlash('success', 'Le livre a été ajouté avec succès.');
 
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
             return $this->redirectToRoute('livreREEL');
         }
 
@@ -169,16 +105,10 @@ class LivresController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-<<<<<<< HEAD
-
-    //_______________________________________________________________________________________________________//
-    //--------- afficher detail PDF---------///
-=======
     
     
      //_______________________________________________________________________________________________________//
      //--------- afficher detail PDF---------///
->>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
     //  #[Route('/admin/stock/livre/DetailPDF/{id}',name:'showPDF')]
     //  public function showPDF(EntityManagerInterface $entityManager,$id):Response{
     //     $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
