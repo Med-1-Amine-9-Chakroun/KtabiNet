@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Form\ValidationPDFType;
+use App\Form\ValidationREELType;
 
 class LivresController extends AbstractController
 {
@@ -49,39 +51,22 @@ class LivresController extends AbstractController
     
     
     //__________________________________________________________________//
-    ////////////////////////ajouter livre réele //////////////////////
-    #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
+    ////////////////////////ajouter livre PDF //////////////////////
+        #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function ajouterPDF(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livrePDF = new LivrePdf();
-        $form = $this->createFormBuilder($livrePDF)
-            ->add('Titre', TextType::class)
-            ->add('Auteur', TextType::class)
-            ->add('Prix', TextType::class)
-            ->add('Description', TextType::class)
-            ->add('Categorie', TextType::class)
-            ->add('NbrPage', TextType::class)
-            ->add('Solde', TextType::class)
-            ->add('datePublication', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('langue', TextType::class)
-            ->add('UrlPdf', TextType::class)
-            ->add('UrlImage', TextType::class)
-            
-            ->getForm();
- 
+        $form = $this->createForm(ValidationPDFType::class, $livrePDF);
+    
         $form->handleRequest($request);
- 
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $livrePDF = $form->getData();
             $entityManager->persist($livrePDF);
             $entityManager->flush();
             return $this->redirectToRoute('livrePDF');
         }
- 
+    
         return $this->render('admin/Stock/LivrePDF/AjouterPDF.html.twig', [
             'form' => $form->createView()
         ]);
@@ -89,52 +74,31 @@ class LivresController extends AbstractController
  
     
     //--------- Ajouter REEL---------///
+    
     #[Route("/admin/stock/livre/ajouterREEL", name: "ajouterREEL", methods: ["GET", "POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function ajouterREEL(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livreReel = new LivreReel();
- 
-   
-        $form = $this->createFormBuilder($livreReel)
-            ->add('titre', TextType::class)
-            ->add('auteur', TextType::class)
-            ->add('prix', TextType::class)
-            ->add('description', TextType::class)
-            ->add('categorie', TextType::class)
-            ->add('nbrPage', TextType::class)
-            ->add('solde', TextType::class)
-            ->add('datePublication', DateType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('langue', TextType::class)
-            ->add('stock', TextType::class)
-            ->add('imageUrl', TextType::class)
-            ->add('category', EntityType::class, [
-             'class' => Category::class,
-             'choice_label' => 'titre',
-             'label' => 'Category',
-         ])
-        
-           
-            ->getForm();
- 
+
+        $form = $this->createForm(ValidationREELType::class, $livreReel);
+
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
-           
-                $entityManager->persist($livreReel);
-                $entityManager->flush();
- 
-                return $this->redirectToRoute('livreREEL');
-           
+            $entityManager->persist($livreReel);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le livre a été ajouté avec succès.');
+
+            return $this->redirectToRoute('livreREEL');
         }
- 
+
         return $this->render('admin/Stock/LivreREEL/AjouterREEL.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    
     
      //_______________________________________________________________________________________________________//
      //--------- afficher detail PDF---------///
