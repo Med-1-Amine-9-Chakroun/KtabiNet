@@ -20,7 +20,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+<<<<<<< HEAD
 use Symfony\Component\Security\Core\Security;
+=======
+use App\Form\ValidationPDFType;
+use App\Form\ValidationREELType;
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
 
 class LivresController extends AbstractController
 {
@@ -56,12 +61,13 @@ class LivresController extends AbstractController
 
 
     //__________________________________________________________________//
-    ////////////////////////ajouter livre réele //////////////////////
-    #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
+    ////////////////////////ajouter livre PDF //////////////////////
+        #[Route("/admin/stock/livre/ajouterPDF", name: "ajouterPDF", methods: ["GET", "POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function ajouterPDF(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livrePDF = new LivrePdf();
+<<<<<<< HEAD
         $form = $this->createFormBuilder($livrePDF)
             ->add('Titre', TextType::class)
             ->add('Auteur', TextType::class)
@@ -82,13 +88,22 @@ class LivresController extends AbstractController
 
         $form->handleRequest($request);
 
+=======
+        $form = $this->createForm(ValidationPDFType::class, $livrePDF);
+    
+        $form->handleRequest($request);
+    
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
         if ($form->isSubmitted() && $form->isValid()) {
-            $livrePDF = $form->getData();
             $entityManager->persist($livrePDF);
             $entityManager->flush();
             return $this->redirectToRoute('livrePDF');
         }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
         return $this->render('admin/Stock/LivrePDF/AjouterPDF.html.twig', [
             'form' => $form->createView()
         ]);
@@ -96,12 +111,14 @@ class LivresController extends AbstractController
 
 
     //--------- Ajouter REEL---------///
+    
     #[Route("/admin/stock/livre/ajouterREEL", name: "ajouterREEL", methods: ["GET", "POST"])]
     #[IsGranted('ROLE_ADMIN')]
     public function ajouterREEL(Request $request, EntityManagerInterface $entityManager): Response
     {
         $livreReel = new LivreReel();
 
+<<<<<<< HEAD
 
         $form = $this->createFormBuilder($livreReel)
             ->add('titre', TextType::class)
@@ -126,14 +143,25 @@ class LivresController extends AbstractController
 
 
             ->getForm();
+=======
+        $form = $this->createForm(ValidationREELType::class, $livreReel);
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+<<<<<<< HEAD
 
             $entityManager->persist($livreReel);
             $entityManager->flush();
 
+=======
+            $entityManager->persist($livreReel);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le livre a été ajouté avec succès.');
+
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
             return $this->redirectToRoute('livreREEL');
         }
 
@@ -141,9 +169,16 @@ class LivresController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+<<<<<<< HEAD
 
     //_______________________________________________________________________________________________________//
     //--------- afficher detail PDF---------///
+=======
+    
+    
+     //_______________________________________________________________________________________________________//
+     //--------- afficher detail PDF---------///
+>>>>>>> d7fd5caf8ea1cc690d7e12c3db13f8490e278faa
     //  #[Route('/admin/stock/livre/DetailPDF/{id}',name:'showPDF')]
     //  public function showPDF(EntityManagerInterface $entityManager,$id):Response{
     //     $livrePDFRepository = $entityManager->getRepository(LivrePdf::class);
