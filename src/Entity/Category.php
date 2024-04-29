@@ -73,7 +73,7 @@ class Category
             $this->livres->add($livre);
             $livre->setCategory($this);
         }
-
+  
         return $this;
     }
 

@@ -33,18 +33,14 @@
 							<td>{{ accesItem.Acces ? 'Oui' : 'Non' }}</td>
 							<td>{{ accesItem.IdClient.id }}</td>
 							{# <td>
-																					                                {% if accesItem.IdLivrePdf is not null %}
-																					                                    {{ accesItem.IdLivrePdf.id }}
-																					                                {% else %}
-																					                                    N/A
-																					                                {% endif %}
-																					                            </td> #}
+																																																                            </td> #}
 							<td>
 								<div class="btn-group" role="group" aria-label="Actions">
 									<a href="{{ path('app_acces_edit', {'id': accesItem.id}) }}" class="btn btn-primary">
 										<i class="fas fa-pencil-alt"></i>
 										<span class="sr-only">Modifier</span>
 									</a>
+
 								</div>
 							</td>
 						</tr>
@@ -58,8 +54,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 	 <script>
-			        $(document).ready(function() {
-			            $('#example').DataTable();
-			        });
-			    </script>
+								        $(document).ready(function() {
+								            $('#example').DataTable();
+								        });
+								    </script>
 {% endblock %}
