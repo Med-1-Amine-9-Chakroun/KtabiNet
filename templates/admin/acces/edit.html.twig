@@ -1,37 +1,8 @@
-{% extends 'AdminBase.html.twig' %}
-
 {% block body %}
-	<div class="card mt-4 p-5" style="overflow: auto; height:70vh ; width: 80%; padding: 50px; margin: 250px 10% ;">
-		{{ form_start(form) }}
-		<div class="form-group">
-			{{ form_label(form.Date) }}
-			{{ form_widget(form.Date, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		<div class="form-group">
-			{{ form_label(form.Acces) }}
-			{{ form_widget(form.Acces, {'attr': {'class': 'form-check-input'}}) }}
-		</div>
-		<div class="form-group">
-			{{ form_label(form.IdClient) }}
-			{{ form_widget(form.IdClient, {'attr': {'class': 'form-control'}}) }}
-		</div>
-		<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
-		{{ form_end(form) }}
-		<div class="container mt-4" style=" width: 100%;">
-			<div class="row ">
-				<div class="col-md-6">
-					<a href="{{ path('app_acces_index') }}">Retour à la liste</a>
-				</div>
-				<div class="col-md-6 text-right">
-					{{ include('admin/acces/_delete_form.html.twig') }}
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
-	{% if app.session.flashBag.has('success') %}
-		<div class="alert alert-success mt-4" role="alert">
-			{{ app.session.flashBag.get('success') }}
-		</div>
-	{% endif %}
+	{{ include('admin/acces/_form.html.twig', { 'button_label': 'Update' }) }}
+	
+
+
 {% endblock %}
