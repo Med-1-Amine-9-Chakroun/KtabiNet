@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Entity\Commande;
+use App\Entity\CommandeLivre;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,22 +102,28 @@ class CommandeLivreReelController extends AbstractController
             $this->entityManager->persist($commande);
             $this->entityManager->flush(); // Flush to get the ID of the newly created Commande
 
+            $newCommandeId = $commande->getId();
+
+            // dd($newCommandeId);
     
 
             // Link book items from cart to the Commande
             // Inside the checkout() method after creating CommandeLivreReel entities
             // Inside the checkout() method after creating CommandeLivreReel entities
             foreach ($cart as $cartItem) {
-                $commandeLivreReel = new CommandeLivreReel();
+                $commandeLivreReel = new CommandeLivre();
                 $commandeLivreReel->setIdLivre($cartItem['id']);
-                $commandeLivreReel->setQuantity($cartItem['quantity']);
-                $commandeLivreReel->setCommande($commande); // Set the Commande entity
+                
+                $commandeLivreReel->setIdCommande($newCommandeId); // Set the Commande entity
+                $commandeLivreReel->setQuantity($cartItem['quantity']); // Set the Commande entity
+     
                 $this->entityManager->persist($commandeLivreReel);
+                $this->entityManager->flush();
             }
 
 
 
-            $this->entityManager->flush();
+     
                     
 
         
@@ -124,7 +131,7 @@ class CommandeLivreReelController extends AbstractController
         $session->remove('cart');
 
         // Redirect to a thank you page or any other appropriate page
-        return $this->redirectToRoute('app_thank_you_page');
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/thankyou', name: 'app_thank_you_page')]
