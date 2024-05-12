@@ -22,7 +22,7 @@ class CommandeFixtures extends Fixture
             $commande->setNbreLivres($faker->numberBetween(1, 10));
 
             // Set a random etat value (ensuring a value is present)
-            $commande->setEtat($faker->randomElement(['en_attente', 'validée', 'livrée']));
+            $commande->setEtat($faker->randomElement(['en_attente', 'validée', 'livrée','hors_stock']));
 
             // Fetch sample Client entity
             $clientReference = 'client_' . rand(1, 100); // Ensure reference range aligns with ClientFixtures

@@ -15,14 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/acces')]
 class AccesController extends AbstractController
 {
-
-    private $em;
+    private $entityManager;
     private $accesRepository;
 
-    public function __construct(AccesRepository $accesRepository, EntityManagerInterface $em)
+    public function __construct(AccesRepository $accesRepository, EntityManagerInterface $entityManager)
     {
-        $this->em = $em;
         $this->accesRepository = $accesRepository;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/', name: 'app_acces_index', methods: ['GET'])]
@@ -42,12 +41,12 @@ class AccesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Les modifications ont été enregistrées avec succès.');
             return $this->redirectToRoute('app_acces_index');
         }
 
         return $this->render('admin/acces/edit.html.twig', [
-            'acce' => $acces,
             'form' => $form->createView(),
         ]);
     }
@@ -56,16 +55,10 @@ class AccesController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Acces $acces): Response
     {
-        try {
-            $this->em->beginTransaction();
-            $this->em->remove($acces);
-            $this->em->flush();
-            $this->em->commit();
-            $this->addFlash('success', 'L\'accès a été supprimé avec succès.');
-        } catch (\Exception $e) {
-            $this->em->rollback();
-            $this->addFlash('error', 'Une erreur s\'est produite lors de la suppression de l\'accès.');
-        }
+        $this->entityManager->remove($acces);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'L\'accès a été supprimé avec succès.');
 
         return $this->redirectToRoute('app_acces_index');
     }

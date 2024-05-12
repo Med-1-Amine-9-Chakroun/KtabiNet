@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType; // Ajout de cette ligne
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CommandeType extends AbstractType
@@ -25,16 +26,18 @@ class CommandeType extends AbstractType
                         'message' => 'Le prix total doit être un nombre décimal positif avec au plus deux décimales.'
                     ]),
                 ],
-            ]) // Champ pour le prix
-            ->add('NbreLivres', NumberType::class) // Champ pour le nombre de livres
-            ->add('etat', TextType::class, [
-                'constraints' => [
-                    new Assert\Regex([
-                        'pattern' => '/^[A-Za-z\s\-\'\,\.]+$/',
-                        'message' => 'L\'état de la commande doit contenir uniquement des lettres, des espaces et des caractères spéciaux (\' \ , . -).',
-                    ]),
+            ])
+            ->add('NbreLivres', NumberType::class)
+
+            ->add('etat', ChoiceType::class, [
+                'choices' => [
+                    'Livrée' => 'livrée',
+                    'Non Livrée' => 'non livrée',
+                    'En cours de Livraison' => 'en cours de livraison',
+                    'Hors Stock' => 'hors stock',
                 ],
-            ]); // Champ pour l'état de la commande
+                'placeholder' => 'Choisissez un état',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -22,23 +22,19 @@ class CommandeController extends AbstractController
             'commandes' => $commandeRepository->findAll(),
         ]);
     }
-
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, int $id, EntityManagerInterface $entityManager, CommandeRepository $commandeRepository): Response
+    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        $commande = $commandeRepository->find($id);
-
-        if (!$commande) {
-            throw $this->createNotFoundException('La commande n\'existe pas');
-        }
-
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'La commande a été mise à jour avec succès.');
+
+            return $this->redirectToRoute('app_commande_index');
         }
 
         return $this->renderForm('admin/commande/edit.html.twig', [
@@ -47,12 +43,11 @@ class CommandeController extends AbstractController
         ]);
     }
 
-
     #[Route('delete/{id}', name: 'app_commande_delete', methods: ['POST', 'GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        
+
         if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commande);
             $entityManager->flush();
