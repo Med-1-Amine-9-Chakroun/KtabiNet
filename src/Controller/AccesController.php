@@ -17,14 +17,14 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class AccesController extends AbstractController
-{   
+{
     private $entityManager;
     private $livrePDF;
     private $security;
     private $session;
     private $requestStack;
 
-    public function __construct(EntityManagerInterface $entityManager,LivrePdfRepository $livrePDF, Security $security,  RequestStack $requestStack)
+    public function __construct(EntityManagerInterface $entityManager, LivrePdfRepository $livrePDF, Security $security,  RequestStack $requestStack)
     {
         $this->entityManager = $entityManager;
         $this->security = $security;
@@ -40,7 +40,7 @@ class AccesController extends AbstractController
         if (!$livrePdf) {
             throw $this->createNotFoundException('The book does not exist');
         }
-        
+
         $user = $this->getUser();
         $client = $this->entityManager->getRepository(Client::class)->find($user->getId());
 
@@ -53,7 +53,7 @@ class AccesController extends AbstractController
             $accesRequest->setDate(new \DateTime($date));
             $accesRequest->setAcces(false);
             $accesRequest->setIdClient($client);
-            
+
 
             $entityManager->persist($accesRequest);
             $entityManager->flush();
@@ -73,17 +73,17 @@ class AccesController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function getBooks($id, AccesRepository $accesRepository): Response
     {
-        
+
         $acces = $accesRepository->getAccesParClient($id);
         $length = count($acces);
-        
+
         $datalivres = [];
         for ($i = 0; $i < $length; $i++) {
             $datalivre = [];
             $acces1 = $acces[$i];
-            if($acces1->isAcces()){
+            if ($acces1->isAcces()) {
                 // Faites quelque chose avec chaque objet Acces, par exemple :
-                $idLivrePdf = $acces1->getIdLivrePdf(); 
+                $idLivrePdf = $acces1->getIdLivrePdf();
                 $livrePdf = $this->livrePDF->findOneBy(['id' => $idLivrePdf]);
 
                 if ($livrePdf) {
@@ -102,7 +102,7 @@ class AccesController extends AbstractController
                     // Accéder à la propriété description de LivrePdf
                     $datalivres[$i] = $datalivre;
                     // Afficher la description du LivrePdf
-                    
+
                 } else {
                     // Le LivrePdf avec l'ID spécifié n'existe pas
                 }

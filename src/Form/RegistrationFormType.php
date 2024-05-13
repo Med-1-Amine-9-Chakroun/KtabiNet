@@ -84,6 +84,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('Adress')
             // Ajout du contrôle pour le champ "Adresse"
             // ->add('Adresse', TextType::class, [
             //     'attr' => [

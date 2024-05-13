@@ -58,7 +58,9 @@
 									</li>
 									<hr>
 									<li>
-										<a href="{{ path('app_logout') }}"><button class="dropdown-item" type="button">Deconnexion</button></a>
+										<a href="{{ path('app_logout') }}">
+											<button class="dropdown-item" type="button">Deconnexion</button>
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -77,48 +79,55 @@
 							<ul class="nav flex-column" style="font-size:20px">
 								<li class="nav-item mt-3">
 									<a class="nav-link active text-white " href="/admin/stock/livre/livreREEL">
-									
+
 										<i class="fa-solid fa-bars"></i>
 										&nbsp;
-																														                                        Liste livre
+																																								Liste livre
 									</a>
 								</li>
 								<li class="nav-item mt-3">
 									<a class="nav-link text-white" href="/admin/stock/livre/ajouterREEL">
 										<i class="fa-solid fa-plus"></i>
 										&nbsp;
-																														                                        Ajouter livre
+																																								Ajouter livre
 									</a>
 								</li>
 								<li class="nav-item mt-3">
 									<a class="nav-link text-white" href="/admin/commande">
 										<i class="fa-solid fa-bars"></i>
 										&nbsp;
-																														                                        Liste commande
+																																								Liste commande
+									</a>
+								</li>
+								<li class="nav-item mt-3">
+									<a class="nav-link text-white" href="/admin/client">
+										<i class="fa-solid fa-bars"></i>
+										&nbsp;
+																																								Liste clients
 									</a>
 								</li>
 								<li class="nav-item mt-3">
 									<a class="nav-link text-white" href="/admin/acces">
 										<i class="fa-solid fa-bars"></i>
 										&nbsp;
-											                                        Liste acces
+																																								Liste acces
 									</a>
 								</li>
 
-							
+
 								<hr>
 								<li class="nav-item">
 									<a class="nav-link text-white" href="/admin/dashboard">
 										<i class="fa-solid fa-chart-line"></i>
 										&nbsp;
-																														                                        Dashboard
+																														Dashboard
 									</a>
 								</li>
 								<li class="nav-item mt-3">
 									<a class="nav-link text-white" href="/admin/client">
 										<i class="fa-solid fa-users"></i>
 										&nbsp;
-																														                                    Gérer utilisateurs
+																				Gérer utilisateurs
 									</a>
 								</li>
 								<li class="nav-item mt-3">
@@ -152,10 +161,10 @@
 
 		 <script src="https://kit.fontawesome.com/3220ca98b3.js" crossorigin="anonymous"></script>
 	{# <header>
-					</header>
-			
-						<main class="container mt-5">{% block body %}{% endblock %} </main>
-			 #}
+									</header>
+							
+										<main class="container mt-5">{% block body %}{% endblock %} </main>
+							 #}
 		<!-- jQuery -->
 		 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 

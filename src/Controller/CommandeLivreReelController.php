@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\LivreReel;
+use App\Entity\CommandeLivreReel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,8 +13,10 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use App\Entity\Commande;
+use App\Entity\CommandeLivre;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class CommandeLivreReelController extends AbstractController
 {   
@@ -85,23 +88,50 @@ class CommandeLivreReelController extends AbstractController
         $user = $this->getUser();
         $client = $this->entityManager->getRepository(Client::class)->find($user->getId());
         
-        // Create and persist a new Commande entity
-        $commande = new Commande();
-        $commande->setDateCommande(new \DateTime());
-        $commande->setPrixTotal($totalPrice);
-        $commande->setNbreLivres($totalBooks);
-        $commande->setEtat('Pending' ); // Set the initial state as Pending
-        $commande->setIdClient($client);
+        
+
+            // Create a new Commande entity
+            $commande = new Commande();
+            $commande->setDateCommande(new \DateTime());
+            $commande->setPrixTotal($totalPrice);
+            $commande->setNbreLivres($totalBooks);
+            $commande->setEtat('Pending'); // Set the initial state as Pending
+            $commande->setIdClient($client);
+
+            // Persist the Commande entity to the database
+            $this->entityManager->persist($commande);
+            $this->entityManager->flush(); // Flush to get the ID of the newly created Commande
+
+            $newCommandeId = $commande->getId();
+
+            // dd($newCommandeId);
+    
+
+            // Link book items from cart to the Commande
+            // Inside the checkout() method after creating CommandeLivreReel entities
+            // Inside the checkout() method after creating CommandeLivreReel entities
+            foreach ($cart as $cartItem) {
+                $commandeLivreReel = new CommandeLivre();
+                $commandeLivreReel->setIdLivre($cartItem['id']);
+                
+                $commandeLivreReel->setIdCommande($newCommandeId); // Set the Commande entity
+                $commandeLivreReel->setQuantity($cartItem['quantity']); // Set the Commande entity
+     
+                $this->entityManager->persist($commandeLivreReel);
+                $this->entityManager->flush();
+            }
+
+
+
+     
+                    
 
         
-        $this->entityManager->persist($commande);
-        $this->entityManager->flush();
-
         // Clear the cart after checkout
         $session->remove('cart');
 
         // Redirect to a thank you page or any other appropriate page
-        return $this->redirectToRoute('app_thank_you_page');
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/thankyou', name: 'app_thank_you_page')]

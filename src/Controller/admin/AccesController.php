@@ -15,55 +15,48 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/acces')]
 class AccesController extends AbstractController
 {
-
-    private $em;
+    private $entityManager;
     private $accesRepository;
-    // private $em;
-     public function __construct(AccesRepository $accesRepository, EntityManagerInterface $em)
-     {
-        $this->em =$em;
-        $this->accesRepository = $accesRepository;
-     }
 
+    public function __construct(AccesRepository $accesRepository, EntityManagerInterface $entityManager)
+    {
+        $this->accesRepository = $accesRepository;
+        $this->entityManager = $entityManager;
+    }
 
     #[Route('/', name: 'app_acces_index', methods: ['GET'])]
-    public function index(AccesRepository $accesRepository): Response
+    public function index(): Response
     {
-        $accesList = $accesRepository->findAll();
+        $accesList = $this->accesRepository->findAll();
         return $this->render('admin/acces/index.html.twig', [
             'accesList' => $accesList,
         ]);
     }
 
-    #[Route('/admin/acces/{id}/edit', name: 'app_acces_edit')]
+    #[Route('/{id}/edit', name: 'app_acces_edit')]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Acces $acces): Response
     {
-        $form = $this->createForm(AccesType::class, $acce);
+        $form = $this->createForm(AccesType::class, $acces);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            return $this->redirectToRoute('app_acces_index', [], Response::HTTP_SEE_OTHER);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Les modifications ont été enregistrées avec succès.');
+            return $this->redirectToRoute('app_acces_index');
         }
 
-
-// dd($form);
-
-        return $this->renderForm('admin/acces/edit.html.twig', [
-            'acce' => $acce,
-            'form' => $form,
+        return $this->render('admin/acces/edit.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
-     
-
 
     #[Route('/delete/{id}', name: 'app_acces_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Request $request, Acces $acce, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Acces $acces): Response
     {
-        $entityManager->remove($acce);
-        $entityManager->flush();
+        $this->entityManager->remove($acces);
+        $this->entityManager->flush();
 
         $this->addFlash('success', 'L\'accès a été supprimé avec succès.');
 

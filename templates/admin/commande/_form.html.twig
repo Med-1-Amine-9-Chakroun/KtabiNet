@@ -1,7 +1,6 @@
 {% extends 'AdminBase.html.twig' %}
 {% block mainContent %}
 
-
 	<div class="card mt-4 p-5" style="overflow: auto; height:70vh ; width: 80%; padding: 50px; margin: 250px 10% ;">
 
 		{{ form_start(form) }}
@@ -23,13 +22,11 @@
 		</div>
 		<div class="form-group">
 			{{ form_label(form.etat) }}
-			{{ form_widget(form.etat, {'attr': {'class': 'form-control  border-b-2 border-secondary '}}) }}
+			{{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
 		</div>
-		<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
-
+		<button type="submit" class="btn btn-primary">{{ button_label|default('Update') }}</button>
 		{{ form_end(form) }}
 		<div class="container mt-4" style=" width: 100%;">
-
 			<div class="row ">
 				<div class="col-md-6">
 					<a href="{{ path('app_commande_index') }}">back to list</a>
@@ -40,5 +37,6 @@
 			</div>
 		</div>
 
+	</div>
 
-	{% endblock %}
+{% endblock %}

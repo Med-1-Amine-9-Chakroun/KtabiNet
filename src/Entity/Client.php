@@ -38,6 +38,10 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $NumTel = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Adress = null;
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +144,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumTel(string $NumTel): static
     {
         $this->NumTel = $NumTel;
+
+        return $this;
+    }
+    
+    public function getAdress(): ?string
+    {
+        return $this->Adress;
+    }
+
+    public function setAdress(string $Adress): static
+    {
+        $this->Adress = $Adress;
 
         return $this;
     }

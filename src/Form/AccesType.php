@@ -3,44 +3,30 @@
 namespace App\Form;
 
 use App\Entity\Acces;
-use App\Entity\LivrePdf;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class AccesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Date')
-            ->add('Acces', null, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => '/^[A-Za-z0-9\s\-\'\,\.]+$/',
-                        'message' => 'Le champ Acces doit contenir uniquement des lettres, des chiffres, des espaces et des caractères spéciaux (\' \,. -).',
-                    ]),
-                ],
+            ->add('Date', DateTimeType::class, [
+                'widget' => 'single_text',
+                'disabled' => true,
             ])
-            ->add('IdClient', EntityType::class, [
-                'class' => Acces::class,
-                'choice_label' => 'id', // à adapter en fonction de la propriété à afficher
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Type(['type' => 'integer']),
-                ],
-                'choices_as_values' => true,
+            ->add('Acces', CheckboxType::class, [
+                'label' => 'Accès Autorisé',
+                'required' => false,
             ])
-            ->add('IdLivrePdf', EntityType::class, [
-                'class' => LivrePdf::class, // replace this line
-                'choice_label' => 'id', // à adapter en fonction de la propriété à afficher
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Type(['type' => 'integer']),
-                ],
+            ->add('IdClient', null, [
+                'disabled' => true,
+            ])
+            ->add('IdLivrePdf', null, [
+                'disabled' => true,
             ]);
     }
 
