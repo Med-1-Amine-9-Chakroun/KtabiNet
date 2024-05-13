@@ -24,29 +24,6 @@
 			background-color: #a5774a;
 		}
 	</style>
-	<nav class="navbar navbar-expand-lg navbar-light custom-navbar">
-		<a class="navbar-brand" href="/">
-			<img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="50" height="50" class="d-inline-block align-top">
-			KtabiNet
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="#about">About</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#services">Services</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#team">Team</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
 	<br><br><br>
 	<section id="about" class="about-section">
 		<div class="row">
@@ -58,7 +35,7 @@
 					<div class="about-text mt-1">
 						<p class="paragraph">
 							Notre application web révolutionnaire va au-delà de la simple vente de livres en offrant une expérience interactive inégalée.
-																																			Découvrez KtabiNet, votre destination en ligne ultime pour vendre et explorer des livres et des livres PDF de toutes sortes !
+																																																																						Découvrez KtabiNet, votre destination en ligne ultime pour vendre et explorer des livres et des livres PDF de toutes sortes !
 						</p>
 					</div>
 				</div>
@@ -66,7 +43,7 @@
 		</section>
 		<br><hr><br>
 
-		<div class="container">
+		<div class="">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="card bg-light">
@@ -103,7 +80,7 @@
 							<div class="about-text mt-4">
 								<p class="paragraph">
 									Que vous soyez un lecteur chevronné ou que vous découvriez le plaisir de la lecture, KtabiNet vous accompagne à chaque étape de votre parcours littéraire.
-																																																																																																																																																																																																																																																																	Notre application est conçue pour être simple et intuitive, offrant une navigation fluide et une interface conviviale.
+																																																																																																																																																																																																																																																																																																														Notre application est conçue pour être simple et intuitive, offrant une navigation fluide et une interface conviviale.
 								</p>
 							</div>
 						</div>
@@ -117,7 +94,7 @@
 	</section>
 	<hr>
 	<br><br>
-	<div class="container">
+	<div class="">
 		<div class="row">
 			<div class="col-md-4 d-flex flex-column align-items-center">
 				<img src="{{ asset('assets/images/picture1.jpeg') }}" alt="Team Image" class="img-fluid mb-3">
@@ -140,7 +117,7 @@
 	</div>
 
 </div><hr><section id="services" class="services">
-	<div class="container">
+	<div class="">
 		<h1 style="text-align:center;">Services</h1>
 		<section id="services" class="services">
 			{% for service in services %}
@@ -157,7 +134,7 @@
 		</section>
 	</div>
 </section><hr><section id="team" class="team-members">
-	<div class="container">
+	<div class="">
 		<h1 style="text-align:center;">Team Members</h1>
 		<section id="team" class="team-members">
 			{% for member in teamMembers %}
@@ -174,7 +151,7 @@
 	</div>
 </section><br><br>{% endblock %}{% block footer %}
 <footer>
-	<div class="container">
+	<div class="">
 		<div class="row">
 			<div class="col-md-4">
 				<br>
