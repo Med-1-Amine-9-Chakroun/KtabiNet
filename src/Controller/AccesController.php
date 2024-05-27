@@ -51,7 +51,7 @@ class AccesController extends AbstractController
             $accesRequest = new Acces();
             $accesRequest->setIdLivrePdf($livrePdf);
             $accesRequest->setDate(new \DateTime($date));
-            $accesRequest->setAcces(false);
+            $accesRequest->setAcces(true);
             $accesRequest->setIdClient($client);
 
 

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-  <div class="">
+  {# <div class="">
     <div class="col-lg-8 border p-3 main-section bg-white">
       <div class="row hedding m-0 pl-3 pt-0 pb-3">
         
@@ -57,9 +57,118 @@
           </div>
         </div>
         
-      </div>
+      </div> #}
 
-      <section class="pb-4">
+
+<div class="box-border h-16 w-32 p-4 border-4 ...">
+  <!-- ... -->
+</div>
+
+
+<div class="widget-property-detail mx-30">
+                <div class="themesflat-container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="wrap-property-car flex">
+                                <div class="box-1">
+                                    
+                                    <div class="title-heading">{{ LivreReel.titre }} </div>
+
+                                    <div class="text-address">
+                                        
+                                        <p> by {{ LivreReel.auteur }} in {{ LivreReel.langue }}</p>
+                                    </div>
+                                </div>
+                                <div class="box-2 t-al-right">
+                                    <div class="icon-boxs flex">
+                                        
+                                    </div>
+                                    <div class="price-wrap flex">
+                                        <p class="price-sale">{{ LivreReel.prix - 4}}</p>
+                                        <p class="price">{{ LivreReel.prix  }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                            
+                                
+                                    <div class="swiper-wrapper flex justify-center items-center" id="" aria-live="polite" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                                        
+                                        <div class="swiper-slide swiper-slide-active flex justify-center items-center" role="group" aria-label="1 / 10" style="width: 735px; margin-right: 10px;">
+                                             <img src="{{ LivreReel.imageUrl }}" alt="Image" class="w-64 h-auto">
+                                        </div>
+                                        <div class="driver-price-wrap mb-40">
+
+                              <form method="POST">
+                                 <button type="submit"  class="btn btn-danger w-100 " name="add_to_cart" >Add To Cart</button>
+                              </form>
+                                <a class="offer-price" data-bs-toggle="modal" href="#offer-price" role="button">
+                                    see more books
+                                    <i class="icon-Group-12"></i>
+                                </a>
+
+                            </div>
+                                    </div>
+                                    
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                            
+                       
+                    
+                    <div class="row ">
+                        <div class="col-lg-8 col-md-12">
+                            <div class="post-property">
+                                <div class="wrap-description wrap-style">
+                                    <h4 class="title">Description</h4>
+                                    <p>{{ LivreReel.description }}</p>
+                                </div>
+                            </div>
+
+<p class="tag-section text-xl text-black ">
+    <strong>Tag :</strong>
+    <a href="#" class="text-2xl">#</a>
+    <a href="#" class="text-2xl">{{ LivreReel.categorie }}</a>
+</p>
+
+<p class="tag-section text-xl text-black">
+    <strong>averageStars :</strong>
+    <a href="#" class="text-2xl">#</a>
+    <a href="#" class="text-2xl"> Rating : {{averageStars}}/5</a>
+</p>
+<p class="tag-section text-xl text-black">
+    <strong>author :</strong>
+    <a href="#" class="text-2xl">#</a>
+    <a href="#" class="text-2xl"> Rating : {{LivreReel.Auteur}}</a>
+</p>
+
+
+
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            
+                            <div class="author-contact-listing-wrap">
+                                <div class="author-contact-wrap">
+
+                                    <div class="author-contact-info">
+                                        <h4 class="name"> Admin </h4>
+                                        <p class="desc">SITE OWNER</p>
+                                        <span class="number-phone">
+                                            <i class=" icon-Group-14"></i>
+                                            +1900 67 xxx (show)
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+      <section class="pb-4 col-lg-8 border p-3">
         <div class="border rounded-5">
           <h2>Add your own feedback</h2>
           {{ include('livres/_formCommantaire.html.twig') }}
@@ -100,6 +209,7 @@
     </div>
     
   </div>
+
 
 
   

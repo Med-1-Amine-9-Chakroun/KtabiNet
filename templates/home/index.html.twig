@@ -9,54 +9,16 @@
 
 {% block body %}
 
-<div class="row hedding m-0 pl-3 pt-0 pb-3"></div>
 
-    <!-- Container for demo purpose -->
-<div class=" my-24 mx-auto md:px-6">
-  <!-- Section: Design Block -->
-  <section class="background-radial-gradient mb-32">
-    <style>
-      .background-radial-gradient {
-        background-color: hsl(218, 41%, 15%);
-        background-image: radial-gradient(650px circle at 0% 0%,
-            hsl(218, 41%, 35%) 15%,
-            hsl(218, 41%, 30%) 35%,
-            hsl(218, 41%, 20%) 75%,
-            hsl(218, 41%, 19%) 80%,
-            transparent 100%),
-          radial-gradient(1250px circle at 100% 100%,
-            hsl(218, 41%, 45%) 15%,
-            hsl(218, 41%, 30%) 35%,
-            hsl(218, 41%, 20%) 75%,
-            hsl(218, 41%, 19%) 80%,
-            transparent 100%);
-      }
-    </style>
-
-    <div class="px-6 py-12 text-center md:px-12 lg:text-left">
-      <div class=" mx-auto">
-        <div class="grid items-center gap-12 lg:grid-cols-2">
-          <div class="mt-12 lg:mt-0">
-            <h1 class="mb-12 text-5xl font-bold tracking-tight text-[hsl(218,81%,95%)] md:text-6xl xl:text-7xl">
-              Are you ready <br /><span class="text-[hsl(218,81%,75%)]">for an adventure?</span>
-            </h1>
-            <p class="text-lg text-[hsl(218,81%,95%)]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Minima officia consequatur adipisci tenetur repudiandae rerum
-              quos.
-            </p>
-          </div>
-          <div class="mb-12 lg:mb-0">
-            <div class="embed-responsive relative w-full rounded-lg shadow-lg" style="padding-top: 56.25%; max-width: 1000px; margin: 0 auto;">
-  <iframe class="embed-responsive-item absolute top-0 left-0 h-full w-full" src="https://www.youtube.com/embed/cpP-fCo8Dn4?si=_rUJfNIgXUL1ZToP" allowfullscreen="" data-gtm-yt-inspected-2340190_699="true" id="240632615"></iframe>
-</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Section: Design Block -->
-</div>
+<div class="tf-slide-form">
+                <div class="themesflat-container">
+                    <div class="slide-form t-al-center">
+                        <span class="wow fadeInUp animated" data-wow-delay="100ms" data-wow-duration="2000ms" style="visibility: visible; animation-duration: 2000ms; animation-delay: 100ms; animation-name: fadeInUp;">Save up to <span class="text-red">15%</span></span>
+                        <h1 class="wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="2000ms" style="visibility: visible; animation-duration: 2000ms; animation-delay: 300ms; animation-name: fadeInUp;">Find <span class="text-red">Perfect</span> BOOKS. Let’s Go!</h1>
+                        <p class="wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="2000ms" style="visibility: visible; animation-duration: 2000ms; animation-delay: 600ms; animation-name: fadeInUp;">Unlimited mileage · No hidden fees · Free cancellation</p>                  
+                    </div>
+                </div>
+            </div>
 <!-- Container for demo purpose -->  
       
 {# <section class="flex">
@@ -96,7 +58,7 @@
 
 
 
-<header class="bg-light py-5">
+{# <header class="bg-light py-5">
             <div class=" px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder text-dark"></h1>
@@ -137,10 +99,10 @@
     </div>
     
   </div>
-</section>
+</section> #}
 
 
-<section class="py-5 ">
+{# <section class="py-5 ">
   <div class="px-4 px-lg-5 mt-5 ">
   <div class="px-4 px-lg-5 mt-5 ">
     <a href="/meslivrespdf"><button type="button" class=" bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">get the PDf version</button></a>
@@ -166,6 +128,231 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</section> #}
+
+<div class="widget-best-deals">
+                <div class="themesflat-container">
+                    <div class="header-section tab-car-service">
+                        <div class="heading-section">
+                            <h2 class="title-section-main wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">BOOKS Listing</h2>
+                        </div>
+                        <ul class="nav nav-pills justify-content-end" id="pills-tab-service" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab-service" data-bs-toggle="pill" data-bs-target="#pills-home-service" type="button" role="tab" aria-selected="true"> All Status</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home-service" role="tabpanel">
+                            <!-- Widget Car Service -->
+                            <div class="car-list-item">
+
+                              {% for product in livres_reel %}
+
+
+                                <div class="tf-car-service">
+                                    <a href="{{ path('app_LivreReel', {'id': product.id}) }}" class="image">
+                                        <div class="stm-badge-top">
+                                            <div class="feature">
+                                                <span>REAL book </span>
+                                                
+                                            </div>
+                                            <span>NEW</span>
+
+                                        </div>
+                                        <div class="listing-images">
+                                            <div class="hover-listing-image">
+                                                <div class="wrap-hover-listing">
+                                                    <div class="listing-item active" title="Lexus LC Hybrid 2024">
+                                                        <div class="images">
+                                                            <img src="{{ product.imageurl }}" class="swiper-image tfcl-light-gallery" alt="images">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="content">
+                                        <span class="sub-title">{{ product.titre }}</span>
+                                        <h6 class="title"><a href="listing-details.html"></a><a href="listing-details.html">by {{ product.auteur }}</a></h6>
+                                        <span class="price">{{ product.prix }} dt</span>
+                                        <div class="description">
+                                            <ul>
+                                                <li class="listing-information fuel">
+                                                    
+                                                    <div class="inner">
+                                                        <span>langue</span>
+                                                        <p>{{ product.langue }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information size-engine">
+                                                    <i class="icon-Group1"></i>
+                                                    <div class="inner">
+                                                        <span>NbrPage</span>
+                                                        <p>{{ product.NbrPage }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information transmission">
+                                                    <i class="icon-gearbox-1"></i>
+                                                    <div class="inner">
+                                                        <span>categorie</span>
+                                                        <p>{{ product.categorie }}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bottom-btn-wrap">
+                                            <div class="btn-read-more">
+                                                <a class="more-link" href="listing-details.html">
+                                                    <span>View details</span>
+                                                    <i class="icon-arrow-right2"></i>
+                                                </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                               {% endfor %} 
+                        </div>
+                      <div class="col-md-12 t-al-center">
+                                    <div class="btn-main mt-45">
+                                        <a href="{{ path('app_mes_livres_reel') }}" class="button_main_inner">
+                                            <span>More Listings</span>
+                                        </a>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+<div class="widget-tf-video">
+                <div class="themesflat-container">
+                    <div class="tf-video video-wrap">
+                        <a href="https://www.youtube.com/watch?v=ThMXH5MrlZI" class="popup-youtube icon-video">
+                            <i class="icon-Polygon-6"></i>
+                        </a>
+                        <div class="title-video">Watch <span class="text-red">Video</span></div>
+                    </div>                 
+                </div>
+            </div>
+
+
+
+
+
+<div class="widget-best-deals">
+                <div class="themesflat-container">
+                    <div class="header-section tab-car-service">
+                        <div class="heading-section">
+                            <h2 class="title-section-main wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">BOOKS Listing</h2>
+                        </div>
+                        <ul class="nav nav-pills justify-content-end" id="pills-tab-service" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab-service" data-bs-toggle="pill" data-bs-target="#pills-home-service" type="button" role="tab" aria-selected="true"> All Status</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home-service" role="tabpanel">
+                            <!-- Widget Car Service -->
+                            <div class="car-list-item">
+
+                              {% for product in livres_pdf %}
+
+
+                                <div class="tf-car-service">
+                                    <a href="{{ path('app_LivreReel', {'id': product.id}) }}" class="image">
+                                        <div class="stm-badge-top">
+                                            <div class="feature">
+                                                <span>PDF book </span>
+                                                
+                                            </div>
+                                            <span>NEW</span>
+
+                                        </div>
+                                        <div class="listing-images">
+                                            <div class="hover-listing-image">
+                                                <div class="wrap-hover-listing">
+                                                    <div class="listing-item active" title="Lexus LC Hybrid 2024">
+                                                        <div class="images">
+                                                            <img src="{{ product.urlImage }}" class="swiper-image tfcl-light-gallery" alt="images">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="content">
+                                        <span class="sub-title">{{ product.titre }}</span>
+                                        <h6 class="title"><a href="listing-details.html"></a><a href="listing-details.html">by {{ product.auteur }}</a></h6>
+                                        <span class="price">{{ product.prix }} dt</span>
+                                        <div class="description">
+                                            <ul>
+                                                <li class="listing-information fuel">
+                                                    
+                                                    <div class="inner">
+                                                        <span>langue</span>
+                                                        <p>{{ product.langue }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information size-engine">
+                                                    <i class="icon-Group1"></i>
+                                                    <div class="inner">
+                                                        <span>NbrPage</span>
+                                                        <p>{{ product.NbrPage }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information transmission">
+                                                    <i class="icon-gearbox-1"></i>
+                                                    <div class="inner">
+                                                        <span>categorie</span>
+                                                        <p>{{ product.categorie }}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bottom-btn-wrap">
+                                            <div class="btn-read-more">
+                                                <a class="more-link" href="listing-details.html">
+                                                    <span>View details</span>
+                                                    <i class="icon-arrow-right2"></i>
+                                                </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                               {% endfor %} 
+                        </div>
+                    </div>
+                    <div class="col-md-12 t-al-center">
+                                    <div class="btn-main mt-45">
+                                        <a href="{{ path('app_mes_livres_pdf') }}" class="button_main_inner">
+                                            <span>More Listings</span>
+                                        </a>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+
+
 
 {% endblock %}
+
+

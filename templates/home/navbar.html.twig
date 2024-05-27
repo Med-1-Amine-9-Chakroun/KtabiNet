@@ -2,37 +2,56 @@
 rel="stylesheet" href="{{ asset('css/navbar.css') }}">
  <script src="https://cdn.tailwindcss.com"></script>
 
+
+ <style>
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            background-color: white; /* Add any background color you want for the sticky navbar */
+			
+        }
+    </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<body class="bg-gray-100">
+    <div class="container mx-auto flex justify-between items-center py-4 sticky">
+        <div class="logo text-red">KtabiNet</div>
 
-<div class="container">
-	<div class="logo">KtabiNet</div>
+        <nav class="nav">
+            <a href="{{ path('app_home') }}" class="nav-link text-black">Homepage</a>
+            <a href="{{ path('app_chatbot') }}" class="nav-link text-black">ChatBot</a>
+            <a href="{{ path('app_mes_livres_reel') }}" class="nav-link text-black">Livres Réel</a>
+            <a href="{{ path('app_mes_livres_pdf') }}" class="nav-link text-black">Livres PDF</a>
+            <a href="{{ path('app_contact') }}" class="nav-link text-black">contact</a>
 
-	<div class="nav">
-		<a href="{{ path('app_home') }}" class="nav-link">Homepage</a>
-		<a href="{{ path('app_chatbot') }}" class="nav-link">ChatBot</a>
-		<a href="{{ path('app_mes_livres_reel') }}" class="nav-link">Livres Réel</a>
-		<a href="{{ path('app_mes_livres_pdf') }}" class="nav-link">Livres PDF</a>
-		<a href="{{ path('app_contact') }}" class="nav-link">contact</a>
+            
+
+            {% if app.user %}
+            
+            <div>
+            <a href="{{ path('app_commande_livre_reel') }}" class=""></a>
+                <form class="ml-4">
+                
+                    <button class="btn btn-outline-dark flex items-center" type="submit">
+                    
+                        <i class="fas fa-shopping-cart mr-1"><a href="{{ path('app_commande_livre_reel') }}" class="">Cart</a></i> 
+                        <span class="badge bg-dark text-white ml-1 rounded-full">0 </span>
 
 
-	</form>
-	{% if app.user %}
-		<form class="d-flex">
-			<button class="btn btn-outline-dark" type="submit">
-				<i class="fas fa-shopping-cart"></i>
-				<a href="{{ path('app_commande_livre_reel') }}" class="">
-					Cart</a>
-				<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-			</button>
-		{% else %}
-			<a href="{{ path('app_register') }}" class="nav-link">Register</a>
+                        
+                    </button>
+                </form>
+                </div>
+                <a href="/lire_livre/{{app.user.id}}" class="nav-link text-black">Mes Livres PDF</a>
+                <a href="{{ path('app_logout') }}" class="nav-link text-black">Logout</a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="nav-link text-black">Register</a>
+                <a href="{{ path('app_login') }}" class="nav-link text-black">Login</a>
+            {% endif %}
+        </nav>
+    </div>
+    <!-- Add your content here -->
+</body>
 
-		{% endif %}
-		{% if app.user %}
-			<a href="/lire_livre/{{app.user.id}}" class="nav-link">Mes Livres</a>
-			<a href="{{ path('app_logout') }}" class="nav-link">Logout</a>
-		{% else %}
-			<a href="{{ path('app_login') }}" class="nav-link">Login</a>
-		{% endif %}
-	</div>
-</div>
+

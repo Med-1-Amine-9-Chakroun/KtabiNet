@@ -107,11 +107,18 @@ class CommandeLivreReelController extends AbstractController
             // Inside the checkout() method after creating CommandeLivreReel entities
             // Inside the checkout() method after creating CommandeLivreReel entities
             foreach ($cart as $cartItem) {
+
+                $livreReel = $this->entityManager->getRepository(LivreReel::class)->find($cartItem['id']);
+
+                
+                $livreReel->setStock($livreReel->getStock() - $cartItem['quantity']);
+
                 $commandeLivreReel = new CommandeLivreReel();
                 $commandeLivreReel->setIdLivre($cartItem['id']);
                 $commandeLivreReel->setQuantity($cartItem['quantity']);
                 $commandeLivreReel->setCommande($commande); // Set the Commande entity
                 $this->entityManager->persist($commandeLivreReel);
+
             }
 
 
@@ -124,7 +131,7 @@ class CommandeLivreReelController extends AbstractController
         $session->remove('cart');
 
         // Redirect to a thank you page or any other appropriate page
-        return $this->redirectToRoute('app_thank_you_page');
+        return $this->redirectToRoute('app_home');
     }
 
     #[Route('/thankyou', name: 'app_thank_you_page')]

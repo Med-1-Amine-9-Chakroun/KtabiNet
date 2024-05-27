@@ -16,14 +16,49 @@
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/book/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/book/css/magnific-popup.min.css') }}">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="{{ asset('assets/book/images/logo/favicon.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/book/css/nice-select.css') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/book/images/logo/logo.png') }}">
+
+
 	</head>
-	<body>
+	<body class="body counter-scroll">
+
+
+    
     {% block navbar %}
             {% include "home/navbar.html.twig" %}
         {% endblock %}
 		{% block body %}{% endblock %}
 	</body>
 	<footer>
-		{% block footer %}{% endblock %}
+		{% block footer %}
+        {% include "home/footer.html.twig" %}
+        {% endblock %}
 	</footer>
+
+    <!-- Javascript -->
+    <script src="{{ asset('assets/book/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/swiper.js') }}"></script>
+    <script src="{{ asset('assets/book/js/jquery-countTo.js') }}"></script>
+    <script src="{{ asset('assets/book/js/nouislider.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/price-ranger.js') }}"></script>
+    <script src="{{ asset('assets/book/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/book/js/main.js') }}"></script>
+
+
 </html>

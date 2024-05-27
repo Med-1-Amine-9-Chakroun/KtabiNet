@@ -9,7 +9,7 @@
 
 {% block body %}
 
-<section class="py-5">
+{# <section class="py-5">
   <div class=" px-4 px-lg-5 mt-5">
     <div class="row">
       {% for product in livres_pdf %}
@@ -35,6 +35,110 @@
     </div>
   </div>
 </section>
+ #}
+
+
+
+<div class="widget-best-deals">
+
+<div class="px-4 px-lg-5 mt-5 ">
+        <div class="search-bar">
+      
+      <form action="{{ path('search_route') }}" method="GET">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+      </form>
+  </div>
+                <div class="themesflat-container">
+                    <div class="header-section tab-car-service">
+                        <div class="heading-section">
+                            <h2 class="title-section-main wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">BOOKS Listing</h2>
+                        </div>
+                        <ul class="nav nav-pills justify-content-end" id="pills-tab-service" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab-service" data-bs-toggle="pill" data-bs-target="#pills-home-service" type="button" role="tab" aria-selected="true"> All Status</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home-service" role="tabpanel">
+                            <!-- Widget Car Service -->
+                            <div class="car-list-item">
+
+                              {% for product in livres_pdf %}
+
+
+                                <div class="tf-car-service">
+                                    <a href="{{ path('app_LivrePdf', {'id': product.id}) }}" class="image">
+                                        <div class="stm-badge-top">
+                                            <div class="feature">
+                                                <span>PDF book </span>
+                                                
+                                            </div>
+                                            <span>NEW</span>
+
+                                        </div>
+                                        <div class="listing-images">
+                                            <div class="hover-listing-image">
+                                                <div class="wrap-hover-listing">
+                                                    <div class="listing-item active" title="Lexus LC Hybrid 2024">
+                                                        <div class="images">
+                                                            <img src="{{ product.urlImage }}" class="swiper-image tfcl-light-gallery" alt="images">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="content">
+                                        <span class="sub-title">{{ product.titre }}</span>
+                                        <h6 class="title"><a href="listing-details.html"></a><a href="listing-details.html">by {{ product.auteur }}</a></h6>
+                                        <span class="price">{{ product.prix }} dt</span>
+                                        <div class="description">
+                                            <ul>
+                                                <li class="listing-information fuel">
+                                                    
+                                                    <div class="inner">
+                                                        <span>langue</span>
+                                                        <p>{{ product.langue }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information size-engine">
+                                                    <i class="icon-Group1"></i>
+                                                    <div class="inner">
+                                                        <span>NbrPage</span>
+                                                        <p>{{ product.NbrPage }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="listing-information transmission">
+                                                    <i class="icon-gearbox-1"></i>
+                                                    <div class="inner">
+                                                        <span>categorie</span>
+                                                        <p>{{ product.categorie }}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bottom-btn-wrap">
+                                            <div class="btn-read-more">
+                                                <a class="more-link" href="listing-details.html">
+                                                    <span>View details</span>
+                                                    <i class="icon-arrow-right2"></i>
+                                                </a>
+                                            </div>
+                                            <div class="btn-group">
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                               {% endfor %} 
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
